@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts (loaded via next/font in layout, here for fallback) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand palette */
+  --navy-950: #002147;
+  --navy-900: #001730;
+  --navy-800: #112a4f;
+  --navy-700: #1f3d6e;
+  --gold-500: #d9a128;
+  --gold-400: #e4b847;
+
+  /* Neutral */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,23,48,0.06);
+  --shadow-md: 0 4px 24px rgba(0,23,48,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,23,48,0.14);
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply font-body text-slate-800 bg-white;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display font-semibold leading-tight text-navy-950;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--navy-950); }
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--gold-400);
+  color: var(--navy-950);
+}
+
+/* ─── Utility classes ─── */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-navy-950 text-white 
+           px-6 py-3 rounded-sm font-body font-semibold text-sm
+           tracking-wide uppercase transition-all duration-300
+           hover:bg-navy-700 hover:shadow-lg hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-navy-950 text-navy-950
+           px-6 py-3 rounded-sm font-body font-semibold text-sm
+           tracking-wide uppercase transition-all duration-300
+           hover:bg-navy-950 hover:text-white hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-navy-950 focus:ring-offset-2;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center gap-2 bg-gold-500 text-navy-950
+           px-6 py-3 rounded-sm font-body font-semibold text-sm
+           tracking-wide uppercase transition-all duration-300
+           hover:bg-gold-400 hover:shadow-lg hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl font-bold text-navy-950;
+  }
+
+  .section-subtitle {
+    @apply font-body text-base text-slate-500 mt-3 max-w-2xl mx-auto leading-relaxed;
+  }
+
+  .card {
+    @apply bg-white rounded-sm shadow-card transition-all duration-300
+           hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .nav-link {
+    @apply relative font-body font-medium text-sm tracking-wide
+           transition-colors duration-200 text-slate-700 hover:text-navy-950;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-500
+           transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-navy-950 font-semibold;
+  }
+
+  /* Gold rule separator */
+  .gold-rule {
+    @apply block w-12 h-1 bg-gold-500 mb-4;
+  }
+
+  /* Animated underline */
+  .underline-gold {
+    @apply relative inline-block;
+  }
+  .underline-gold::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 w-full h-0.5 bg-gold-500;
+  }
+}
+
+/* ─── Keyframe Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Animated entry helpers ─── */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Prose overrides for content pages ─── */
+.prose-dept h2 { @apply text-navy-950 font-display; }
+.prose-dept p  { @apply text-slate-600 leading-relaxed; }
+.prose-dept a  { @apply text-navy-700 underline hover:text-gold-500; }
+
+/* ─── Table styles ─── */
+.dept-table {
+  @apply w-full border-collapse text-sm;
+}
+.dept-table th {
+  @apply bg-navy-950 text-white font-body font-semibold px-4 py-3 text-left;
+}
+.dept-table td {
+  @apply border-b border-slate-100 px-4 py-3 text-slate-700;
+}
+.dept-table tr:nth-child(even) td {
+  @apply bg-slate-50;
+}
+.dept-table tr:hover td {
+  @apply bg-navy-50 transition-colors duration-150;
+}
