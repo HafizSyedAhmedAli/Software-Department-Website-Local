@@ -9,22 +9,24 @@ export default function ChairmanMessage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-
           {/* Photo */}
           <div className="lg:col-span-2 flex flex-col items-center lg:items-start">
-            <div className="relative w-52 h-52 md:w-64 md:h-64">
-              <div className="absolute inset-0 rounded-sm bg-navy-950 translate-x-3 translate-y-3" />
-              <div className="relative rounded-sm overflow-hidden w-full h-full shadow-card-hover">
+            <div className="relative w-full max-w-sm mx-auto">
+              {/* The Navy Background - Reduced translate for a subtler look */}
+              <div className="absolute inset-0 rounded-sm bg-navy-900 translate-x-2 translate-y-2" />
+
+              {/* The Image Container - Switched to 4:3 Aspect Ratio */}
+              <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-md">
                 <Image
                   src="/images/faculty/chairmainpic.jfif"
                   alt="Prof. Dr. Pardeep Kumar"
                   fill
-                  sizes="256px"
                   className="object-cover"
+                  priority
                 />
               </div>
             </div>
-            <div className="mt-6 text-center lg:text-left">
+            <div className="mt-6 text-center lg:text-left md:ml-12">
               <p className="font-display text-navy-950 font-bold text-xl">
                 Prof. Dr. Pardeep Kumar
               </p>
@@ -49,21 +51,23 @@ export default function ChairmanMessage() {
               />
               <div className="space-y-4 font-body text-slate-600 text-base leading-relaxed">
                 <p>
-                  It gives me immense pleasure to invite you to the website of the
-                  Software Engineering Department, QUEST. The department offers Bachelors
-                  of Engineering (B.E) and Masters of Engineering (M.E) degrees in
-                  Software Engineering.
+                  It gives me immense pleasure to invite you to the website of
+                  the Software Engineering Department, QUEST. The department
+                  offers Bachelors of Engineering (B.E) and Masters of
+                  Engineering (M.E) degrees in Software Engineering.
                 </p>
                 <p>
-                  Our graduates are already serving in reputable public and private sector
-                  software organisations both locally and internationally. The department
-                  provides a congenial environment for carrying out cutting-edge research
-                  and experimental work with modern, state-of-the-art laboratories.
+                  Our graduates are already serving in reputable public and
+                  private sector software organisations both locally and
+                  internationally. The department provides a congenial
+                  environment for carrying out cutting-edge research and
+                  experimental work with modern, state-of-the-art laboratories.
                 </p>
                 <p>
-                  Our faculty is highly qualified and always ready to guide students in
-                  any academic-related problems. Please explore the Department of Software
-                  Engineering — I am sure you will love to be a part of it.
+                  Our faculty is highly qualified and always ready to guide
+                  students in any academic-related problems. Please explore the
+                  Department of Software Engineering — I am sure you will love
+                  to be a part of it.
                 </p>
               </div>
             </div>

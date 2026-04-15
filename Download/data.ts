@@ -1,4 +1,4 @@
-import type { NavItem, FacultyMember, StaffMember, NewsEvent, Download, GalleryItem } from "./types";
+import { Download, FacultyMember, NavItem, NewsEvent, StaffMember } from "../animations/lib/types";
 
 // ─── Navigation ────────────────────────────────────────────────────────────
 export const NAV_ITEMS: NavItem[] = [

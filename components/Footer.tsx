@@ -30,7 +30,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="relative w-12 h-12 bg-white rounded-sm p-1">
+              <div className="relative w-12 h-12 rounded-sm p-1">
                 <Image
                   src="/images/favicon.png"
                   alt="SWE QUEST"
