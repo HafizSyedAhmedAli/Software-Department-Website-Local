@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Download, FileText, FileSpreadsheet, File } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
-import { DOWNLOADS_DATA } from "../../Download/data";
+import { DOWNLOADS_DATA } from "../../download/data";
 
 export const metadata: Metadata = {
   title: "Downloads",
@@ -50,7 +50,7 @@ export default function DownloadsPage() {
               </thead>
               <tbody>
                 {DOWNLOADS_DATA.map((item, i) => (
-                  <tr key={i} className="group">
+                  <tr key={item._id ?? item.fileUrl} className="group">
                     <td className="text-slate-400 font-mono text-center">{i + 1}</td>
                     <td>
                       <div className="flex items-center gap-2">

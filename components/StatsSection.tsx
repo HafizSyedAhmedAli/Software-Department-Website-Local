@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BookOpen, Users, FlaskConical, GraduationCap } from "lucide-react";
-import { STATS } from "../Download/data";
+import { STATS } from "../download/data";
 
 const ICONS = {
   book: BookOpen,

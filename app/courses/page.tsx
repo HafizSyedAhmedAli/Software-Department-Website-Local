@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpen, Clock, Tag, ChevronRight } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
-import { COURSES_DATA } from "../../Download/data";
+import { COURSES_DATA } from "../../download/data";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -36,6 +36,8 @@ export default function CoursesPage() {
     .map(Number)
     .sort((a, b) => a - b);
 
+  const totalCredits = COURSES_DATA.reduce((sum, c) => sum + c.creditHours, 0);
+
   return (
     <>
       <PageHeader
@@ -53,7 +55,7 @@ export default function CoursesPage() {
                 label: "Total Courses",
                 value: COURSES_DATA.length.toString() + "+",
               },
-              { label: "Credit Hours", value: "136+" },
+              { label: "Credit Hours", value: `${totalCredits}+` },
               { label: "Semesters", value: "8" },
               { label: "Duration", value: "4 Years" },
             ].map((item) => (
@@ -119,7 +121,7 @@ export default function CoursesPage() {
                       {/* CLOs preview */}
                       <div className="mt-4 pt-4 border-t border-slate-50">
                         <p className="font-body text-xs text-slate-400 uppercase tracking-wide mb-2">
-                          {course.clos.length} CLOs
+                          {course.clos?.length} CLOs
                         </p>
                         <div className="flex gap-1 flex-wrap">
                           {course.clos.map((clo) => (

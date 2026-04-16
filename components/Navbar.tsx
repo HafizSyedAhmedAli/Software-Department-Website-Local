@@ -6,8 +6,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Search, Mail, Phone } from "lucide-react";
 import { clsx } from "clsx";
-import { NavItem } from "../animations/lib/types";
-import { CONTACT, NAV_ITEMS } from "../Download/data";
+import { NavItem } from "../lib/types";
+import { CONTACT, NAV_ITEMS } from "../download/data";
 
 // ─── Dropdown ──────────────────────────────────────────────────────────────
 function Dropdown({ items }: { items: NavItem[] }) {

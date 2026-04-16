@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Mail, Facebook, Linkedin, Crown } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
-import { FACULTY_DATA } from "../../Download/data";
-import { FacultyMember } from "../../animations/lib/types";
+import { FACULTY_DATA } from "../../download/data";
+import { FacultyMember } from "../../lib/types";
 
 export const metadata: Metadata = {
   title: "Faculty",
@@ -127,7 +127,7 @@ export default function FacultyPage() {
             <h2 className="section-title mb-8">Academic Staff</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
               {rest.map((member) => (
-                <FacultyCard key={member.name} member={member} />
+                <FacultyCard key={member._id} member={member} />
               ))}
             </div>
           </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { CONTACT } from "../Download/data";
+import { CONTACT } from "../download/data";
 
 const QUICK_LINKS = [
   { label: "Home", href: "/" },

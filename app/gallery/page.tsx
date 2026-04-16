@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "../../components/PageHeader";
-import { GalleryItem } from "../../animations/lib/types";
+import { GalleryItem } from "../../lib/types";
 import GalleryClient from "./GalleryClient";
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "../../../components/PageHeader";
-import { PLOS_DATA } from "../../../Download/data";
+import { PLOS_DATA } from "../../../download/data";
 
 export const metadata: Metadata = {
   title: "Program Learning Outcomes (PLOs)",
@@ -13,7 +13,7 @@ export default function PLOsPage() {
       <PageHeader
         title="Program Learning Outcomes"
         subtitle="12 Graduate Attributes aligned with PEC requirements and the Washington Accord."
-        crumbs={[{ label: "OBE", href: "#" }, { label: "PLOs" }]}
+        crumbs={[{ label: "OBE" }, { label: "PLOs" }]}
       />
 
       <section className="py-16 md:py-24 bg-white">
@@ -26,9 +26,10 @@ export default function PLOsPage() {
             Engineering Council (PEC) accreditation requirements and the Washington Accord graduate
             attributes.
           </p>
+          
 
-          {/* Table view */}
-          <div className="overflow-x-auto rounded-sm shadow-card mb-12">
+          {/* Table view Desktop */}
+          <div className="hidden md:block overflow-x-auto rounded-sm shadow-card mb-12">
             <table className="dept-table">
               <thead>
                 <tr>
@@ -54,7 +55,7 @@ export default function PLOsPage() {
           </div>
 
           {/* Cards view for mobile / visual presentation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:hidden">
             {PLOS_DATA.map((plo, i) => (
               <div
                 key={plo.id}

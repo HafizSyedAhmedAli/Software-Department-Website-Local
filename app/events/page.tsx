@@ -1,9 +1,9 @@
+import { Calendar } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Calendar, ArrowRight } from "lucide-react";
+import { NewsEvent } from "../../lib/types";
 import PageHeader from "../../components/PageHeader";
-import { EVENTS_DATA } from "../../Download/data";
-import { NewsEvent } from "../../animations/lib/types";
+import { EVENTS_DATA } from "../../download/data";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -92,7 +92,7 @@ export default function EventsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {sorted.map((event, i) => (
-              <EventCard key={i} event={event} />
+              <EventCard key={event._id} event={event} />
             ))}
           </div>
 

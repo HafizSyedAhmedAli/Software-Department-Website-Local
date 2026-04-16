@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
-import { NewsEvent } from "../animations/lib/types";
-import { EVENTS_DATA } from "../Download/data";
+import { NewsEvent } from "../lib/types";
+import { EVENTS_DATA } from "../download/data";
 
 function EventCard({ event }: { event: NewsEvent }) {
   const formattedDate = event.date

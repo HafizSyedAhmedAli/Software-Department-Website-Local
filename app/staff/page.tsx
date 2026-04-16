@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "../../components/PageHeader";
-import { STAFF_DATA } from "../../Download/data";
+import { STAFF_DATA } from "../../download/data";
 
 export const metadata: Metadata = {
   title: "Staff",
@@ -32,21 +32,29 @@ export default function StaffPage() {
                 </tr>
               </thead>
               <tbody>
-                {STAFF_DATA.map((member) => (
-                  <tr key={member.sn}>
-                    <td className="font-mono text-slate-400 text-center">
-                      {member.sn}
-                    </td>
-                    <td className="font-semibold text-navy-950">
-                      {member.name}
-                    </td>
-                    <td>
-                      <span className="inline-block bg-navy-50 text-navy-800 text-xs font-semibold px-2.5 py-1 rounded-sm">
-                        {member.designation}
-                      </span>
+                {STAFF_DATA.length > 0 ? (
+                  STAFF_DATA.map((member) => (
+                    <tr key={member.sn}>
+                      <td className="font-mono text-slate-400 text-center">
+                        {member.sn}
+                      </td>
+                      <td className="font-semibold text-navy-950">
+                        {member.name}
+                      </td>
+                      <td>
+                        <span className="inline-block bg-navy-50 text-navy-800 text-xs font-semibold px-2.5 py-1 rounded-sm">
+                          {member.designation}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={3} className="text-center text-slate-400 py-8">
+                      No staff members to display.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

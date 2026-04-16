@@ -85,4 +85,45 @@ export interface SiteSettings {
   linkedin?: string;
 }
 
-export type GalleryCategory = "all" | "lab" | "classroom" | "welcome" | "qses" | "others";
+export interface VisionMission {
+  vision: string;
+  mission: string[];
+  values: { title: string; description: string }[];
+}
+
+export interface PEO {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export interface PLO {
+  id: string;
+  attribute: string;
+  description: string;
+}
+
+export interface CLO {
+  clo: string;
+  description: string;
+  domain: string;
+  taxonomy: string;
+  plo: string;
+}
+
+export interface OBE_Course {
+  code: string;
+  name: string;
+  creditHours: number;
+  semester: number;
+  type: string;
+  clos: CLO[];
+}
+
+export type GalleryCategory =
+  | "all"
+  | "lab"
+  | "classroom"
+  | "welcome"
+  | "qses"
+  | "others";

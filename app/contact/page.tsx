@@ -12,7 +12,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
-import { CONTACT } from "../../Download/data";
+import { CONTACT } from "../../download/data";
 
 function ContactForm() {
   const [form, setForm] = useState({
@@ -67,10 +67,14 @@ function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5">
+          <label
+            htmlFor="contact-name"
+            className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5"
+          >
             Full Name <span className="text-red-500">*</span>
           </label>
           <input
+            id="contact-name"
             type="text"
             name="name"
             required
@@ -81,10 +85,14 @@ function ContactForm() {
           />
         </div>
         <div>
-          <label className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5">
+          <label
+            htmlFor="email"
+            className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5"
+          >
             Email Address <span className="text-red-500">*</span>
           </label>
           <input
+            id="email"
             type="email"
             name="email"
             required
@@ -97,10 +105,14 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5">
+        <label
+          htmlFor="subject"
+          className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5"
+        >
           Subject <span className="text-red-500">*</span>
         </label>
         <input
+          id="subject"
           type="text"
           name="subject"
           required
@@ -112,10 +124,14 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5">
+        <label
+          htmlFor="message"
+          className="block font-body text-xs font-semibold text-navy-950 uppercase tracking-wide mb-1.5"
+        >
           Message <span className="text-red-500">*</span>
         </label>
         <textarea
+          id="message"
           name="message"
           required
           rows={5}
@@ -165,6 +181,11 @@ function ContactForm() {
 }
 
 export default function ContactPage() {
+  // In your data file or before rendering
+  const isValidMapEmbed = (url: string) =>
+    url.startsWith("https://www.google.com/maps/embed") ||
+    url.startsWith("https://maps.google.com/");
+
   return (
     <>
       <PageHeader
@@ -216,9 +237,12 @@ export default function ContactPage() {
                     >
                       {CONTACT.phone}
                     </a>
-                    <span className="font-body text-xs text-slate-400">
+                     <a
+                      href={`tel:${CONTACT.phone2}`}
+                      className="font-body text-xs text-slate-500 hover:text-gold-600 transition-colors block"
+                    >
                       {CONTACT.phone2}
-                    </span>
+                    </a>
                   </div>
                 </div>
 
@@ -289,17 +313,19 @@ export default function ContactPage() {
 
           {/* Map */}
           <div className="mt-14 rounded-sm overflow-hidden shadow-card">
-            <iframe
-              src={CONTACT.mapEmbed}
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="QUEST Nawabshah Map"
-              className="block"
-            />
+            {isValidMapEmbed(CONTACT.mapEmbed) && (
+              <iframe
+                src={CONTACT.mapEmbed}
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="QUEST Nawabshah Map"
+                className="block"
+              />
+            )}
           </div>
         </div>
       </section>

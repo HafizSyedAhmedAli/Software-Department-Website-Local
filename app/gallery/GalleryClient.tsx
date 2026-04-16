@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { clsx } from "clsx";
-import { GalleryItem } from "../../animations/lib/types";
-import { GALLERY_CATEGORIES } from "../../Download/data";
+import { GalleryItem } from "../../lib/types";
+import { GALLERY_CATEGORIES } from "../../download/data";
 
 // ─── Lightbox ──────────────────────────────────────────────────────────────
 function Lightbox({
@@ -15,10 +15,21 @@ function Lightbox({
   item: GalleryItem;
   onClose: () => void;
 }) {
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   return (
     <div
       className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
       <button
         className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
@@ -41,7 +52,7 @@ function Lightbox({
           />
         </div>
         {item.title && (
-          <p className="text-center text-white font-body text-sm mt-3 text-slate-300">
+          <p className="text-center text-white font-body text-sm mt-3">
             {item.title}
           </p>
         )}
@@ -70,7 +81,7 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
               "px-4 py-2 rounded-sm text-sm font-body font-semibold transition-all duration-200",
               active === cat.key
                 ? "bg-navy-950 text-white shadow-md"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                : "bg-slate-100 text-slate-600 hover:bg-slate-200",
             )}
           >
             {cat.label}
@@ -80,7 +91,9 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
 
       {/* Count */}
       <p className="font-body text-sm text-slate-400 mb-6">
-        Showing <span className="font-semibold text-navy-950">{filtered.length}</span> image
+        Showing{" "}
+        <span className="font-semibold text-navy-950">{filtered.length}</span>{" "}
+        image
         {filtered.length !== 1 ? "s" : ""}
       </p>
 
@@ -93,7 +106,7 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {filtered.map((item, i) => (
             <button
-              key={i}
+              key={item.imageUrl}
               onClick={() => setLightbox(item)}
               className="group relative aspect-square rounded-sm overflow-hidden bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2"
             >

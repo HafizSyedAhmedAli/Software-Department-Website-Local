@@ -1,10 +1,15 @@
 import {
+  Course,
   Download,
   FacultyMember,
   NavItem,
   NewsEvent,
+  OBE_Course,
+  PEO,
+  PLO,
   StaffMember,
-} from "../animations/lib/types";
+  VisionMission,
+} from "../lib/types";
 
 // ─── Navigation ────────────────────────────────────────────────────────────
 export const NAV_ITEMS: NavItem[] = [
@@ -291,7 +296,7 @@ export const GALLERY_CATEGORIES = [
 ] as const;
 
 // ─── OBE: Vision & Mission ──────────────────────────────────────────────────
-export const VISION_MISSION = {
+export const VISION_MISSION: VisionMission = {
   vision:
     "To be a nationally and internationally recognised department delivering world-class software engineering education, research, and innovation that meets the highest academic and professional standards.",
   mission: [
@@ -331,7 +336,7 @@ export const VISION_MISSION = {
 };
 
 // ─── OBE: PEOs ─────────────────────────────────────────────────────────────
-export const PEOS_DATA = [
+export const PEOS_DATA: PEO[] = [
   {
     id: "PEO-1",
     title: "Professional Competence",
@@ -365,7 +370,7 @@ export const PEOS_DATA = [
 ];
 
 // ─── OBE: PLOs ─────────────────────────────────────────────────────────────
-export const PLOS_DATA = [
+export const PLOS_DATA: PLO[] = [
   {
     id: "PLO-1",
     attribute: "Engineering Knowledge",
@@ -441,7 +446,7 @@ export const PLOS_DATA = [
 ];
 
 // ─── OBE: Courses with CLOs ─────────────────────────────────────────────────
-export const COURSES_DATA = [
+export const COURSES_DATA: OBE_Course[] = [
   {
     code: "SW-101",
     name: "Programming Fundamentals",
