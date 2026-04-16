@@ -1,4 +1,10 @@
-import { Download, FacultyMember, NavItem, NewsEvent, StaffMember } from "../animations/lib/types";
+import {
+  Download,
+  FacultyMember,
+  NavItem,
+  NewsEvent,
+  StaffMember,
+} from "../animations/lib/types";
 
 // ─── Navigation ────────────────────────────────────────────────────────────
 export const NAV_ITEMS: NavItem[] = [
@@ -151,7 +157,8 @@ export const EVENTS_DATA: NewsEvent[] = [
     title: "(PEC) Accreditation Visit ⏳",
     summary:
       "We are thrilled to welcome the Pakistan Engineering Council (PEC) for our first Full Accreditation visit on October 10-11! This is a pivotal moment for the Software Engineering Department.",
-    imageUrl: "/images/events/Pakistan Engineering Council (PEC) for our first (Full) Accreditation.png",
+    imageUrl:
+      "/images/events/Pakistan Engineering Council (PEC) for our first (Full) Accreditation.png",
     date: "2024-10-10",
   },
   {
@@ -282,3 +289,461 @@ export const GALLERY_CATEGORIES = [
   { key: "qses", label: "QSES Events" },
   { key: "others", label: "Others" },
 ] as const;
+
+// ─── OBE: Vision & Mission ──────────────────────────────────────────────────
+export const VISION_MISSION = {
+  vision:
+    "To be a nationally and internationally recognised department delivering world-class software engineering education, research, and innovation that meets the highest academic and professional standards.",
+  mission: [
+    "Provide high-quality undergraduate and postgraduate education in software engineering, aligned with PEC and international accreditation standards.",
+    "Foster a research-intensive environment where students and faculty collaborate on cutting-edge software solutions to real-world problems.",
+    "Build strong industry partnerships that create internship, employment, and entrepreneurial opportunities for graduates.",
+    "Instil professional ethics, leadership, and a commitment to lifelong learning in every graduate.",
+    "Contribute to the social and economic development of Pakistan through knowledge creation, technology transfer, and community engagement.",
+  ],
+  values: [
+    {
+      title: "Excellence",
+      description:
+        "Pursuing the highest standards in teaching, research, and professional practice.",
+    },
+    {
+      title: "Integrity",
+      description:
+        "Upholding honesty, transparency, and ethical conduct in all endeavours.",
+    },
+    {
+      title: "Innovation",
+      description:
+        "Encouraging creative thinking and novel approaches to solve complex software challenges.",
+    },
+    {
+      title: "Inclusivity",
+      description:
+        "Welcoming diversity of thought, background, and perspective in our community.",
+    },
+    {
+      title: "Collaboration",
+      description:
+        "Building meaningful partnerships with industry, academia, and society at large.",
+    },
+  ],
+};
+
+// ─── OBE: PEOs ─────────────────────────────────────────────────────────────
+export const PEOS_DATA = [
+  {
+    id: "PEO-1",
+    title: "Professional Competence",
+    description:
+      "Graduates will demonstrate strong technical competence and apply software engineering principles, methods, and tools to design, develop, and maintain reliable software systems in professional environments.",
+  },
+  {
+    id: "PEO-2",
+    title: "Technical Leadership",
+    description:
+      "Graduates will assume leadership roles in software projects, effectively managing teams, resources, and timelines to deliver high-quality software products that meet stakeholder requirements.",
+  },
+  {
+    id: "PEO-3",
+    title: "Research & Innovation",
+    description:
+      "Graduates will engage in research activities, contribute to the advancement of software engineering knowledge, and develop innovative solutions that address emerging technological challenges.",
+  },
+  {
+    id: "PEO-4",
+    title: "Professional Ethics",
+    description:
+      "Graduates will uphold professional and ethical responsibilities, demonstrate respect for intellectual property, data privacy, and contribute positively to society through responsible software practice.",
+  },
+  {
+    id: "PEO-5",
+    title: "Lifelong Learning",
+    description:
+      "Graduates will pursue continuous professional development through postgraduate education, certifications, and self-directed learning to remain current with rapidly evolving software technologies.",
+  },
+];
+
+// ─── OBE: PLOs ─────────────────────────────────────────────────────────────
+export const PLOS_DATA = [
+  {
+    id: "PLO-1",
+    attribute: "Engineering Knowledge",
+    description:
+      "Apply knowledge of mathematics, natural science, computing fundamentals, and a software engineering specialisation to the solution of complex software engineering problems.",
+  },
+  {
+    id: "PLO-2",
+    attribute: "Problem Analysis",
+    description:
+      "Identify, formulate, research literature, and analyse complex software engineering problems, reaching substantiated conclusions using first principles of mathematics and engineering sciences.",
+  },
+  {
+    id: "PLO-3",
+    attribute: "Design / Development of Solutions",
+    description:
+      "Design solutions for complex software engineering problems and design systems, components, or processes that meet specified needs with appropriate consideration for public health and safety, cultural, societal, and environmental considerations.",
+  },
+  {
+    id: "PLO-4",
+    attribute: "Investigation",
+    description:
+      "Conduct investigations of complex problems including design of experiments, analysis and interpretation of data, and synthesis of information to provide valid conclusions.",
+  },
+  {
+    id: "PLO-5",
+    attribute: "Modern Tool Usage",
+    description:
+      "Create, select, and apply appropriate techniques, resources, and modern engineering and IT tools, including prediction and modelling, to complex engineering activities, with an understanding of the limitations.",
+  },
+  {
+    id: "PLO-6",
+    attribute: "The Engineer and Society",
+    description:
+      "Apply reasoning informed by contextual knowledge to assess societal, health, safety, legal, and cultural issues and the consequent responsibilities relevant to professional engineering practice.",
+  },
+  {
+    id: "PLO-7",
+    attribute: "Environment and Sustainability",
+    description:
+      "Understand and evaluate the sustainability and impact of professional engineering work in the solution of complex engineering problems in societal and environmental contexts.",
+  },
+  {
+    id: "PLO-8",
+    attribute: "Ethics",
+    description:
+      "Apply ethical principles and commit to professional ethics and responsibilities and norms of engineering practice.",
+  },
+  {
+    id: "PLO-9",
+    attribute: "Individual and Team Work",
+    description:
+      "Function effectively as an individual, and as a member or leader in diverse teams and in multi-disciplinary settings.",
+  },
+  {
+    id: "PLO-10",
+    attribute: "Communication",
+    description:
+      "Communicate effectively on complex engineering activities with the engineering community and with society at large, by being able to comprehend and write effective reports and design documentation.",
+  },
+  {
+    id: "PLO-11",
+    attribute: "Project Management",
+    description:
+      "Demonstrate knowledge and understanding of engineering management principles and economic decision-making, and apply these to one's own work as a member or leader in a team.",
+  },
+  {
+    id: "PLO-12",
+    attribute: "Lifelong Learning",
+    description:
+      "Recognise the need for, and have the preparation and ability to engage in independent and lifelong learning in the broadest context of technological change.",
+  },
+];
+
+// ─── OBE: Courses with CLOs ─────────────────────────────────────────────────
+export const COURSES_DATA = [
+  {
+    code: "SW-101",
+    name: "Programming Fundamentals",
+    creditHours: 3,
+    semester: 1,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Understand fundamental programming constructs such as variables, data types, and operators.",
+        domain: "Cognitive",
+        taxonomy: "C2",
+        plo: "PLO-1",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Design and implement programs using control structures, loops, and functions.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-3",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Apply debugging techniques to identify and correct program errors.",
+        domain: "Cognitive",
+        taxonomy: "C4",
+        plo: "PLO-5",
+      },
+    ],
+  },
+  {
+    code: "SW-102",
+    name: "Object-Oriented Programming",
+    creditHours: 3,
+    semester: 2,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Explain the principles of object-oriented programming including encapsulation, inheritance, and polymorphism.",
+        domain: "Cognitive",
+        taxonomy: "C2",
+        plo: "PLO-1",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Design and implement class hierarchies to model real-world problems.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-3",
+      },
+      {
+        clo: "CLO-3",
+        description: "Develop applications using OOP design patterns.",
+        domain: "Cognitive",
+        taxonomy: "C6",
+        plo: "PLO-5",
+      },
+    ],
+  },
+  {
+    code: "SW-201",
+    name: "Data Structures & Algorithms",
+    creditHours: 3,
+    semester: 3,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Analyse the time and space complexity of algorithms using Big-O notation.",
+        domain: "Cognitive",
+        taxonomy: "C4",
+        plo: "PLO-2",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Implement fundamental data structures including arrays, linked lists, stacks, queues, and trees.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-1",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Select and apply appropriate algorithms to solve computational problems efficiently.",
+        domain: "Cognitive",
+        taxonomy: "C5",
+        plo: "PLO-3",
+      },
+    ],
+  },
+  {
+    code: "SW-202",
+    name: "Database Systems",
+    creditHours: 3,
+    semester: 3,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Design relational database schemas using ER modelling and normalisation.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-3",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Write complex SQL queries for data retrieval and manipulation.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-1",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Implement database applications with proper transaction management.",
+        domain: "Cognitive",
+        taxonomy: "C6",
+        plo: "PLO-5",
+      },
+    ],
+  },
+  {
+    code: "SW-301",
+    name: "Software Requirements Engineering",
+    creditHours: 3,
+    semester: 5,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Elicit, analyse, and document software requirements using structured techniques.",
+        domain: "Cognitive",
+        taxonomy: "C4",
+        plo: "PLO-2",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Create use case diagrams, user stories, and SRS documents.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-10",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Validate requirements through reviews, walkthroughs, and prototyping.",
+        domain: "Cognitive",
+        taxonomy: "C5",
+        plo: "PLO-4",
+      },
+    ],
+  },
+  {
+    code: "SW-302",
+    name: "Software Design & Architecture",
+    creditHours: 3,
+    semester: 5,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Apply architectural patterns such as MVC, layered, and microservices to system design.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-3",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Create UML design diagrams including class, sequence, and component diagrams.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-10",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Evaluate design alternatives using quality attributes such as cohesion and coupling.",
+        domain: "Cognitive",
+        taxonomy: "C5",
+        plo: "PLO-2",
+      },
+    ],
+  },
+  {
+    code: "SW-303",
+    name: "Software Testing & Quality Assurance",
+    creditHours: 3,
+    semester: 6,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Design test cases using black-box and white-box testing techniques.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-4",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Apply automated testing frameworks and continuous integration tools.",
+        domain: "Psychomotor",
+        taxonomy: "P3",
+        plo: "PLO-5",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Evaluate software quality using metrics and define a quality assurance plan.",
+        domain: "Cognitive",
+        taxonomy: "C5",
+        plo: "PLO-2",
+      },
+    ],
+  },
+  {
+    code: "SW-401",
+    name: "Software Project Management",
+    creditHours: 3,
+    semester: 7,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Apply project management methodologies including Agile and SCRUM to software projects.",
+        domain: "Cognitive",
+        taxonomy: "C3",
+        plo: "PLO-11",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Develop project plans, risk registers, and cost-benefit analyses.",
+        domain: "Cognitive",
+        taxonomy: "C6",
+        plo: "PLO-11",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Demonstrate team leadership and communication skills in a project environment.",
+        domain: "Affective",
+        taxonomy: "A3",
+        plo: "PLO-9",
+      },
+    ],
+  },
+  {
+    code: "SW-402",
+    name: "Final Year Project (FYP)",
+    creditHours: 6,
+    semester: 8,
+    type: "Core",
+    clos: [
+      {
+        clo: "CLO-1",
+        description:
+          "Define a real-world software problem and produce a comprehensive project proposal.",
+        domain: "Cognitive",
+        taxonomy: "C5",
+        plo: "PLO-2",
+      },
+      {
+        clo: "CLO-2",
+        description:
+          "Design, implement, and test a fully functional software solution.",
+        domain: "Psychomotor",
+        taxonomy: "P5",
+        plo: "PLO-3",
+      },
+      {
+        clo: "CLO-3",
+        description:
+          "Present project outcomes effectively through technical reports and oral presentations.",
+        domain: "Cognitive",
+        taxonomy: "C6",
+        plo: "PLO-10",
+      },
+      {
+        clo: "CLO-4",
+        description:
+          "Reflect on professional, ethical, and societal dimensions of the developed software.",
+        domain: "Affective",
+        taxonomy: "A4",
+        plo: "PLO-8",
+      },
+    ],
+  },
+];
