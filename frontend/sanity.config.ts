@@ -10,7 +10,7 @@ export default defineConfig({
   title: "SWE QUEST — Content Studio",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
-  basePath: "/studio",
+  basePath: "/admin",
   plugins: [
     structureTool({
       structure: (S) =>
