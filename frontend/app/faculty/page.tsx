@@ -27,7 +27,7 @@ function FacultyCard({ member }: { member: FacultyMember }) {
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-navy-100">
             <span className="font-display text-4xl text-navy-300 font-bold">
-              {member.name.charAt(0)}
+              {member?.name?.charAt(0)}
             </span>
           </div>
         )}

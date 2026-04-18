@@ -1,13 +1,13 @@
+import { Eye, Star, Target } from "lucide-react";
 import type { Metadata } from "next";
-import { Eye, Target, Star } from "lucide-react";
 import PageHeader from "../../../components/PageHeader";
-import { api } from "../../../lib/api";
 import { VISION_MISSION } from "../../../download/data";
+import { api } from "../../../lib/api";
 
 export const metadata: Metadata = { title: "Vision & Mission" };
 
 export default async function VisionPage() {
-  const vm = await api.visionMission().catch(() => VISION_MISSION);
+  const vm = await api.visionMission().catch(() => VISION_MISSION) || { vision: '', mission: [], values: [] };
 
   return (
     <>
