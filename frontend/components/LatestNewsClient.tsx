@@ -1,10 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { NewsEvent } from "../lib/types";
-import { api } from "../lib/api";
-import { EVENTS_DATA } from "../download/data";
-import LatestNewsClient from "./LatestNewsClient";
+import { StaggerContainer, StaggerItem } from "./FadeIn";
 
 function EventCard({ event }: { event: NewsEvent }) {
   const formattedDate = event.date
@@ -16,7 +17,11 @@ function EventCard({ event }: { event: NewsEvent }) {
     : null;
 
   return (
-    <div className="card group overflow-hidden flex flex-col">
+    <motion.article
+      className="group bg-white rounded-sm shadow-card overflow-hidden flex flex-col"
+      whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(0,23,48,0.15)" }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+    >
       <div className="relative h-48 overflow-hidden">
         {event.imageUrl ? (
           <Image
@@ -63,35 +68,24 @@ function EventCard({ event }: { event: NewsEvent }) {
           />
         </Link>
       </div>
-      <div className="h-0.5 w-0 bg-gold-500 transition-all duration-300 group-hover:w-full" />
-    </div>
+      <motion.div
+        className="h-0.5 bg-gold-500"
+        initial={{ width: 0 }}
+        whileHover={{ width: "100%" }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.article>
   );
 }
 
-export default async function LatestNewsSection() {
-  const events = await api.latestEvents().catch(() => EVENTS_DATA.slice(0, 6));
-
+export default function LatestNewsClient({ events }: { events: NewsEvent[] }) {
   return (
-    <section className="py-20 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div>
-            <span className="gold-rule" />
-            <h2 className="section-title">Latest News &amp; Events</h2>
-          </div>
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-2 font-body text-sm font-semibold text-navy-950 hover:text-gold-600 transition-colors shrink-0 group"
-          >
-            View All Events{" "}
-            <ArrowRight
-              size={16}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </Link>
-        </div>
-        <LatestNewsClient events={events} />
-      </div>
-    </section>
+    <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {events.map((event, i) => (
+        <StaggerItem key={event._id ?? i}>
+          <EventCard event={event} />
+        </StaggerItem>
+      ))}
+    </StaggerContainer>
   );
 }
