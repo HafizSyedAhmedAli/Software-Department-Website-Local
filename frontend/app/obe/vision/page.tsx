@@ -64,7 +64,7 @@ export default async function VisionPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {vm.values.map((val) => (
+              {vm.values?.map((val) => (
                 <div
                   key={val.title}
                   className="bg-slate-50 border border-slate-100 rounded-sm p-5 hover:border-gold-300 hover:shadow-card transition-all duration-300"

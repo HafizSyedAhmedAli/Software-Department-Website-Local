@@ -107,7 +107,7 @@ export default async function CoursesPage() {
                           {course.clos?.length} CLOs
                         </p>
                         <div className="flex gap-1 flex-wrap">
-                          {course.clos.map((clo) => (
+                          {course.clos?.map((clo) => (
                             <span
                               key={clo.clo}
                               className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-sm font-mono"

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
       "Empowering the next generation of software engineers in Pakistan.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/images/favicon.png",
     apple: "/apple-touch-icon.png",
   },
 };
