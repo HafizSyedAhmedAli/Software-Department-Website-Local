@@ -1,13 +1,33 @@
 import { Eye, Star, Target } from "lucide-react";
 import type { Metadata } from "next";
 import PageHeader from "../../../components/PageHeader";
-import { VISION_MISSION } from "../../../download/data";
-import { api } from "../../../lib/api";
 
-export const metadata: Metadata = { title: "Vision & Mission" };
+export const metadata: Metadata = {
+  title: "Vision & Mission"
+};
 
 export default async function VisionPage() {
-  const vm = await api.visionMission().catch(() => VISION_MISSION) || { vision: '', mission: [], values: [] };
+
+  const vm = {
+    vision: "To produce highly professional Software Engineers who will be recognized as innovative leaders by exhibiting the necessary skills to design quality software systems substantive for technological transformation and sustainable development.",
+    mission: [
+      "To provide a challenging environment of learning skills pertaining to principles, practices, and processes to design and develop software tools with the utmost professionalism and as per market demands to serve humanity at large."
+    ],
+    values: [
+      {
+        title: "Innovation",
+        description: "Encouraging creativity and forward-thinking in software development."
+      },
+      {
+        title: "Professionalism",
+        description: "Maintaining high standards of ethics and responsibility."
+      },
+      {
+        title: "Quality",
+        description: "Commitment to building reliable and efficient software systems."
+      }
+    ]
+  };
 
   return (
     <>
@@ -16,8 +36,11 @@ export default async function VisionPage() {
         subtitle="The guiding principles that shape the Software Engineering Department."
         crumbs={[{ label: "OBE" }, { label: "Vision & Mission" }]}
       />
+
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 space-y-16">
+
+          {/* Vision */}
           <div className="flex gap-6 items-start">
             <div className="w-14 h-14 rounded-sm bg-navy-950 flex items-center justify-center shrink-0">
               <Eye size={24} className="text-gold-400" />
@@ -30,7 +53,10 @@ export default async function VisionPage() {
               </p>
             </div>
           </div>
+
           <hr className="border-slate-100" />
+
+          {/* Mission */}
           <div className="flex gap-6 items-start">
             <div className="w-14 h-14 rounded-sm bg-navy-950 flex items-center justify-center shrink-0">
               <Target size={24} className="text-gold-400" />
@@ -52,7 +78,10 @@ export default async function VisionPage() {
               </div>
             </div>
           </div>
+
           <hr className="border-slate-100" />
+
+          {/* Core Values */}
           <div>
             <div className="flex gap-6 items-start mb-8">
               <div className="w-14 h-14 rounded-sm bg-navy-950 flex items-center justify-center shrink-0">
@@ -63,6 +92,7 @@ export default async function VisionPage() {
                 <h2 className="section-title">Core Values</h2>
               </div>
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {vm.values.map((val) => (
                 <div
@@ -80,6 +110,7 @@ export default async function VisionPage() {
               ))}
             </div>
           </div>
+
         </div>
       </section>
     </>

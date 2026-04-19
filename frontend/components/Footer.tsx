@@ -142,12 +142,12 @@ export default function Footer() {
             © {new Date().getFullYear()} Department of Software Engineering, QUEST Nawabshah. All rights reserved.
           </p>
           <p className="font-body text-xs text-slate-500">
-            Designed by{" "}
+            Designed & Developed by{" "}
             <a
-              href="mailto:malaikarajput280@gmail.com"
+              href="mailto:aslamqasim126@gmail.com"
               className="text-gold-500 hover:text-gold-400 transition-colors"
             >
-              Malaika Rajput
+              Qasim & Ahmed
             </a>
           </p>
         </div>
