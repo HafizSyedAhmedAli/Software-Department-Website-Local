@@ -52,7 +52,7 @@ export default function AboutSection() {
               }}
             >
               <p className="font-display font-bold text-2xl leading-none">
-                2020
+                2018
               </p>
               <p className="font-body text-xs font-semibold uppercase tracking-wide mt-0.5">
                 Established

@@ -40,7 +40,7 @@ export default function ChairmanMessage() {
               />
               <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-md">
                 <Image
-                  src="/images/faculty/chairmainpic.jfif"
+                  src="/images/faculty/chairmainpic.jpg"
                   alt="Prof. Dr. Pardeep Kumar"
                   fill
                   className="object-cover"
