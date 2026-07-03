@@ -22,15 +22,27 @@ function EventCard({ event }: { event: NewsEvent }) {
       whileHover={{ y: -6, boxShadow: "0 16px 40px rgba(0,23,48,0.15)" }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden bg-navy-100">
         {event.imageUrl ? (
-          <Image
-            src={event.imageUrl}
-            alt={event.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <>
+            {/* Blurred, zoomed-in backdrop fills the frame so there's no empty grey bars */}
+            <Image
+              src={event.imageUrl}
+              alt=""
+              aria-hidden
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover scale-125 blur-xl opacity-50"
+            />
+            {/* Full, uncropped image on top */}
+            <Image
+              src={event.imageUrl}
+              alt={event.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="relative object-contain transition-transform duration-500 group-hover:scale-105"
+            />
+          </>
         ) : (
           <div className="w-full h-full bg-navy-100 flex items-center justify-center">
             <span className="text-navy-300 font-display text-lg">
