@@ -6,8 +6,14 @@ import { galleryItemSchema } from "./gallery";
 import { courseSchema } from "./course";
 import { peoSchema, ploSchema, visionMissionSchema } from "./obe";
 import { siteSettingsSchema } from "./siteSettings";
+import { heroSlideSchema } from "./heroSlide";
+import { researchItemSchema } from "./research";
+import { alumniSchema } from "./alumni";
 
 export const schemaTypes = [
+  // Homepage
+  heroSlideSchema,
+
   // People
   facultySchema,
   staffSchema,
@@ -16,6 +22,10 @@ export const schemaTypes = [
   eventSchema,
   downloadSchema,
   galleryItemSchema,
+
+  // Community
+  researchItemSchema,
+  alumniSchema,
 
   // Academic
   courseSchema,

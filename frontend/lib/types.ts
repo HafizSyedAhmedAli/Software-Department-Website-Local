@@ -29,6 +29,44 @@ export interface StaffMember {
   designation: string;
 }
 
+export interface ResearchItem {
+  _id?: string;
+  title: string;
+  kind: "journal" | "conference" | "project" | "book";
+  authors: string;
+  venue?: string;
+  year: number;
+  area?: string;
+  link?: string;
+}
+
+export interface AlumnusProfile {
+  _id?: string;
+  name: string;
+  batch: string;
+  designation: string;
+  company?: string;
+  location?: string;
+  quote?: string;
+  linkedin?: string;
+  order?: number;
+  photoUrl?: string;
+}
+
+export interface HeroSlide {
+  _id?: string;
+  eyebrow: string;
+  headingLine1: string;
+  headingLine2: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaSecondaryLabel?: string;
+  ctaSecondaryHref?: string;
+  order?: number;
+  imageUrl?: string;
+}
+
 export interface NewsEvent {
   _id?: string;
   title: string;

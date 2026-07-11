@@ -17,6 +17,20 @@ export interface StaffMember {
   designation: string;
 }
 
+export interface HeroSlide {
+  _id: string;
+  eyebrow: string;
+  headingLine1: string;
+  headingLine2: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaSecondaryLabel?: string;
+  ctaSecondaryHref?: string;
+  order?: number;
+  imageUrl?: string;
+}
+
 export interface NewsEvent {
   _id: string;
   title: string;

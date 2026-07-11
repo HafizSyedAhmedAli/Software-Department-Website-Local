@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "../components/Hero";
+import { api } from "../lib/api";
 import ServicesStrip from "../components/ServicesStrip";
 import AboutSection from "../components/AboutSection";
 import StatsSection from "../components/StatsSection";
@@ -12,10 +13,11 @@ export const metadata: Metadata = {
     "Department of Software Engineering at QUEST Nawabshah — PEC accredited BE programme, cutting-edge research, and industry collaboration.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const heroSlides = await api.heroSlides().catch(() => null);
   return (
     <>
-      <Hero />
+      <Hero cmsSlides={heroSlides} />
       <ServicesStrip />
       <AboutSection />
       <StatsSection />

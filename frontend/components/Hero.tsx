@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
+import type { HeroSlide } from "../lib/types";
 
 const SLIDES = [
   {
@@ -45,27 +46,66 @@ const textVariants = {
   exit: { opacity: 0, y: -18 },
 };
 
-export default function Hero() {
+type Slide = {
+  image: string;
+  eyebrow: string;
+  heading: [string, string];
+  body: string;
+  cta: { label: string; href: string };
+  ctaSecondary: { label: string; href: string };
+};
+
+/** Map CMS documents to the internal slide shape; invalid entries are skipped. */
+function fromCms(slides?: HeroSlide[] | null): Slide[] {
+  if (!Array.isArray(slides)) return [];
+  return slides
+    .filter((s) => s && s.imageUrl && s.headingLine1 && s.headingLine2)
+    .map((s) => ({
+      image: s.imageUrl as string,
+      eyebrow: s.eyebrow || "Department of Software Engineering",
+      heading: [s.headingLine1, s.headingLine2] as [string, string],
+      body: s.body || "",
+      cta: {
+        label: s.ctaLabel || "Explore Programs",
+        href: s.ctaHref || "/courses",
+      },
+      ctaSecondary: {
+        label: s.ctaSecondaryLabel || "Contact Us",
+        href: s.ctaSecondaryHref || "/contact",
+      },
+    }));
+}
+
+export default function Hero({
+  cmsSlides,
+}: {
+  cmsSlides?: HeroSlide[] | null;
+}) {
+  // CMS slides take over as soon as at least one exists; otherwise fallback.
+  const cms = fromCms(cmsSlides);
+  const slides: Slide[] = cms.length > 0 ? cms : (SLIDES as Slide[]);
+
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((c) => (c + 1) % SLIDES.length);
+      setCurrent((c) => (c + 1) % slides.length);
     }, 7000);
     return () => clearInterval(timer);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slides.length]);
 
   function goTo(idx: number) {
     setCurrent(idx);
   }
   function prev() {
-    setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length);
+    setCurrent((c) => (c - 1 + slides.length) % slides.length);
   }
   function next() {
-    setCurrent((c) => (c + 1) % SLIDES.length);
+    setCurrent((c) => (c + 1) % slides.length);
   }
 
-  const slide = SLIDES[current];
+  const slide = slides[current % slides.length];
 
   return (
     <section className="relative min-h-[520px] h-[72svh] md:h-[calc(100svh-8.5rem)] max-h-[860px] overflow-hidden bg-navy-950">
@@ -208,7 +248,7 @@ export default function Hero() {
 
       {/* ── Slide Indicators ── */}
       <div className="absolute bottom-7 md:bottom-9 left-5 sm:left-6 lg:left-10 z-20 flex items-center gap-2.5">
-        {SLIDES.map((_, i) => (
+        {slides.map((_, i) => (
           <motion.button
             key={i}
             onClick={() => goTo(i)}
@@ -251,7 +291,7 @@ export default function Hero() {
             {String(current + 1).padStart(2, "0")}
           </span>
           {" / "}
-          {String(SLIDES.length).padStart(2, "0")}
+          {String(slides.length).padStart(2, "0")}
         </span>
         <motion.button
           onClick={next}

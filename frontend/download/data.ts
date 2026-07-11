@@ -14,7 +14,6 @@ import {
 // ─── Navigation ────────────────────────────────────────────────────────────
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Courses", href: "/courses" },
   {
     label: "People",
     href: "#",
@@ -31,8 +30,11 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "PEOs", href: "/obe/peos" },
       { label: "PLOs", href: "/obe/plos" },
       { label: "CLOs", href: "/obe/clos" },
+      { label: "Courses", href: "/courses" },
     ],
   },
+  { label: "Research", href: "/research" },
+  { label: "Alumni", href: "/alumni" },
   { label: "Gallery", href: "/gallery" },
   { label: "Downloads", href: "/downloads" },
   { label: "Events", href: "/events" },

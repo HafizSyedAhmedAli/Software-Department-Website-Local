@@ -17,6 +17,9 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
+            // ── Homepage ──
+            S.documentTypeListItem("heroSlide").title("Hero Slides"),
+            S.divider(),
             // ── People ──
             S.listItem()
               .title("People")
@@ -35,6 +38,12 @@ export default defineConfig({
             S.documentTypeListItem("event").title("News & Events"),
             S.documentTypeListItem("download").title("Downloads"),
             S.documentTypeListItem("galleryItem").title("Gallery"),
+            S.divider(),
+            // ── Community ──
+            S.documentTypeListItem("researchItem").title(
+              "Research & Publications",
+            ),
+            S.documentTypeListItem("alumnus").title("Alumni"),
             S.divider(),
             // ── Academic / OBE ──
             S.listItem()

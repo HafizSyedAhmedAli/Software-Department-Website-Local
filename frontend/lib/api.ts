@@ -9,6 +9,9 @@ import {
   PLO,
   VisionMission,
   SiteSettings,
+  HeroSlide,
+  ResearchItem,
+  AlumnusProfile,
 } from "./types";
 
 const API_URL = process.env.API_URL ?? "http://localhost:5000";
@@ -32,6 +35,9 @@ async function apiFetch<T>(
 }
 
 export const api = {
+  heroSlides: () => apiFetch<HeroSlide[]>("/hero", ["hero"]),
+  research: () => apiFetch<ResearchItem[]>("/research", ["research"]),
+  alumni: () => apiFetch<AlumnusProfile[]>("/alumni", ["alumni"]),
   faculty: () => apiFetch<FacultyMember[]>("/faculty", ["faculty"]),
   staff: () => apiFetch<StaffMember[]>("/staff", ["staff"]),
   events: () => apiFetch<NewsEvent[]>("/events", ["events"]),

@@ -46,7 +46,14 @@ export const eventSchema = defineType({
       description:
         "Optional extra photos. When an event has multiple images, visitors can swipe through them.",
       type: "array",
-      of: [{ type: "image", options: { hotspot: true } }],
+      of: [
+        {
+          type: "image",
+          name: "galleryImage",
+          title: "Photo",
+          options: { hotspot: true },
+        },
+      ],
     }),
   ],
   preview: {
