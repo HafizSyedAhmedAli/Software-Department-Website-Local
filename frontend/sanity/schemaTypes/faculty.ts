@@ -22,6 +22,7 @@ export const facultySchema = defineType({
           "Associate Professor",
           "Assistant Professor",
           "Lecturer",
+          "Lab Engineer"
         ],
       },
       validation: (R) => R.required(),
