@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUp, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { CONTACT } from "../download/data";
 
 const QUICK_LINKS = [
@@ -22,38 +25,50 @@ const OBE_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-950 text-white">
-      {/* ── Main Footer ── */}
-      <div className="max-w-7xl mx-auto px-6 py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="relative bg-navy-950 text-white overflow-hidden">
+      {/* Gradient top border */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold-500 via-cyan-500 to-gold-500 bg-[length:200%_100%] animate-gradient-x" />
 
+      {/* Ambient mesh + grid background */}
+      <div className="absolute inset-0 bg-mesh-navy opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
+
+      {/* ── Main Footer ── */}
+      <div className="relative max-w-8xl mx-auto px-6 lg:px-10 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="relative w-12 h-12 rounded-sm p-1">
+            <Link href="/" className="flex items-center gap-3 mb-5 group">
+              <motion.div
+                className="relative w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-1.5"
+                whileHover={{ scale: 1.06, rotate: 3 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Image
                   src="/images/favicon.png"
                   alt="SWE QUEST"
                   fill
                   sizes="48px"
-                  className="object-contain p-0.5"
+                  className="object-contain p-1"
                 />
-              </div>
+              </motion.div>
               <div>
                 <p className="font-display font-semibold text-white text-base leading-tight">
                   Software Engineering
                 </p>
-                <p className="font-body text-xs text-slate-400 leading-tight">
-                  QUEST Nawabshah
+                <p className="font-mono text-[11px] text-gold-400/80 tracking-wider leading-tight mt-0.5">
+                  QUEST NAWABSHAH
                 </p>
               </div>
             </Link>
             <p className="font-body text-sm text-slate-400 leading-relaxed">
-              Empowering future software engineers through quality education, 
-              cutting-edge research, and industry collaboration.
+              Committed to excellence in engineering education, innovative
+              research, and industry collaboration — preparing future software
+              engineers, researchers, and technology leaders for sustainable
+              technological advancement and digital transformation.
             </p>
             {/* Social */}
-            <div className="flex gap-3 mt-5">
+            <div className="flex gap-3 mt-6">
               <SocialLink href={CONTACT.facebook} label="Facebook" icon="fb" />
               <SocialLink href={CONTACT.linkedin} label="LinkedIn" icon="li" />
               <SocialLink href={CONTACT.twitter} label="Twitter" icon="tw" />
@@ -62,7 +77,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
+              <span className="w-5 h-px bg-gold-500" />
               Quick Links
             </h4>
             <ul className="space-y-2.5">
@@ -70,9 +86,12 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="font-body text-sm text-slate-400 hover:text-gold-400 transition-colors flex items-center gap-2 group"
+                    className="font-body text-sm text-slate-400 hover:text-gold-400 transition-all duration-200 flex items-center gap-2 group hover:translate-x-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold-500 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
+                    <ArrowRight
+                      size={12}
+                      className="text-gold-500/50 group-hover:text-gold-400 transition-colors shrink-0"
+                    />
                     {l.label}
                   </Link>
                 </li>
@@ -82,7 +101,8 @@ export default function Footer() {
 
           {/* OBE Links */}
           <div>
-            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
+              <span className="w-5 h-px bg-gold-500" />
               Academic
             </h4>
             <ul className="space-y-2.5">
@@ -90,9 +110,12 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="font-body text-sm text-slate-400 hover:text-gold-400 transition-colors flex items-center gap-2 group"
+                    className="font-body text-sm text-slate-400 hover:text-gold-400 transition-all duration-200 flex items-center gap-2 group hover:translate-x-1"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold-500 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
+                    <ArrowRight
+                      size={12}
+                      className="text-gold-500/50 group-hover:text-gold-400 transition-colors shrink-0"
+                    />
                     {l.label}
                   </Link>
                 </li>
@@ -102,30 +125,42 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5">
+            <h4 className="font-display text-white font-semibold text-sm uppercase tracking-widest mb-5 flex items-center gap-2">
+              <span className="w-5 h-px bg-gold-500" />
               Contact Us
             </h4>
             <ul className="space-y-4">
               <li className="flex gap-3">
-                <MapPin size={15} className="text-gold-400 shrink-0 mt-0.5" />
+                <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                  <MapPin size={14} className="text-gold-400" />
+                </span>
                 <span className="font-body text-sm text-slate-400 leading-relaxed">
                   {CONTACT.address}
                 </span>
               </li>
               <li className="flex gap-3">
-                <Phone size={15} className="text-gold-400 shrink-0 mt-0.5" />
+                <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                  <Phone size={14} className="text-gold-400" />
+                </span>
                 <div className="font-body text-sm text-slate-400">
-                  <a href={`tel:${CONTACT.phone}`} className="hover:text-gold-400 transition-colors block">
+                  <a
+                    href={`tel:${CONTACT.phone}`}
+                    className="hover:text-gold-400 transition-colors block"
+                  >
                     {CONTACT.phone}
                   </a>
-                  <span className="text-xs text-slate-500">{CONTACT.phone2}</span>
+                  <span className="text-xs text-slate-500">
+                    {CONTACT.phone2}
+                  </span>
                 </div>
               </li>
               <li className="flex gap-3">
-                <Mail size={15} className="text-gold-400 shrink-0 mt-0.5" />
+                <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                  <Mail size={14} className="text-gold-400" />
+                </span>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="font-body text-sm text-slate-400 hover:text-gold-400 transition-colors break-all"
+                  className="font-body text-sm text-slate-400 hover:text-gold-400 transition-colors break-all self-center"
                 >
                   {CONTACT.email}
                 </a>
@@ -136,20 +171,35 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="border-t border-navy-800">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="relative border-t border-white/[0.07]">
+        <div className="max-w-8xl mx-auto px-6 lg:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-body text-xs text-slate-500">
-            © {new Date().getFullYear()} Department of Software Engineering, QUEST Nawabshah. All rights reserved.
+            © {new Date().getFullYear()} Department of Software Engineering,
+            QUEST Nawabshah. All rights reserved.
           </p>
-          <p className="font-body text-xs text-slate-500">
-            Designed & Developed by{" "}
-            <a
-              href="mailto:aslamqasim126@gmail.com"
-              className="text-gold-500 hover:text-gold-400 transition-colors"
+          <div className="flex items-center gap-4">
+            <p className="font-body text-xs text-slate-500">
+              Designed &amp; Developed by{" "}
+              <a
+                href="mailto:aslamqasim126@gmail.com"
+                className="text-gold-500 hover:text-gold-400 transition-colors font-medium"
+              >
+                Syed Ahmed Ali &amp; Muhammad Qasim
+              </a>
+            </p>
+            {/* Back to top */}
+            <motion.button
+              onClick={() =>
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+              aria-label="Back to top"
+              className="w-8 h-8 rounded-lg bg-gold-500 text-navy-950 flex items-center justify-center hover:bg-gold-400 transition-colors shadow-glow-gold"
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.9 }}
             >
-              Qasim & Ahmed
-            </a>
-          </p>
+              <ArrowUp size={15} />
+            </motion.button>
+          </div>
         </div>
       </div>
     </footer>
@@ -185,14 +235,16 @@ function SocialLink({
   };
 
   return (
-    <a
+    <motion.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-8 h-8 rounded-sm bg-navy-800 hover:bg-gold-500 hover:text-navy-950 text-slate-400 flex items-center justify-center transition-all duration-200"
+      className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:bg-gold-500 hover:border-gold-500 hover:text-navy-950 text-slate-400 flex items-center justify-center transition-all duration-200"
+      whileHover={{ y: -3, scale: 1.05 }}
+      whileTap={{ scale: 0.92 }}
     >
       {icons[icon]}
-    </a>
+    </motion.a>
   );
 }

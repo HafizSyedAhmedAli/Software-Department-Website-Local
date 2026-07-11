@@ -1,95 +1,38 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
-import { NewsEvent } from "../lib/types";
+import { ArrowRight } from "lucide-react";
 import { api } from "../lib/api";
 import { EVENTS_DATA } from "../download/data";
-
-function EventCard({ event }: { event: NewsEvent }) {
-  const formattedDate = event.date
-    ? new Date(event.date).toLocaleDateString("en-PK", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
-    : null;
-
-  return (
-    <div className="card group overflow-hidden flex flex-col">
-      <div className="relative h-48 overflow-hidden">
-        {event.imageUrl ? (
-          <Image
-            src={event.imageUrl}
-            alt={event.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full bg-navy-100 flex items-center justify-center">
-            <span className="text-navy-300 font-display text-lg">
-              SWE QUEST
-            </span>
-          </div>
-        )}
-        <div className="absolute top-3 left-3">
-          <span className="bg-navy-950/90 text-white text-xs font-body font-semibold px-2.5 py-1 uppercase tracking-wide">
-            Event
-          </span>
-        </div>
-      </div>
-      <div className="p-5 flex flex-col flex-1">
-        {formattedDate && (
-          <div className="flex items-center gap-1.5 text-xs text-slate-400 font-body mb-2.5">
-            <Calendar size={11} />
-            <span>{formattedDate}</span>
-          </div>
-        )}
-        <h3 className="font-display text-navy-950 font-semibold text-base leading-snug mb-2.5 group-hover:text-navy-700 transition-colors line-clamp-2">
-          {event.title}
-        </h3>
-        <p className="font-body text-sm text-slate-500 leading-relaxed line-clamp-3 flex-1 mb-4">
-          {event.summary}
-        </p>
-        <Link
-          href="/events"
-          className="inline-flex items-center gap-1.5 text-xs font-body font-semibold text-navy-950 uppercase tracking-wide hover:text-gold-600 transition-colors group/link"
-        >
-          View More{" "}
-          <ArrowRight
-            size={13}
-            className="transition-transform group-hover/link:translate-x-1"
-          />
-        </Link>
-      </div>
-      <div className="h-0.5 w-0 bg-gold-500 transition-all duration-300 group-hover:w-full" />
-    </div>
-  );
-}
+import LatestNewsClient from "./LatestNewsClient";
 
 export default async function LatestNewsSection() {
   const events = await api.latestEvents().catch(() => EVENTS_DATA.slice(0, 6));
 
   return (
-    <section className="py-20 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+    <section className="relative py-20 md:py-28 bg-white overflow-hidden">
+      {/* Faint dot backdrop */}
+      <div className="absolute inset-0 bg-dots-light opacity-40 pointer-events-none" />
+
+      <div className="relative max-w-8xl mx-auto px-6 lg:px-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12">
           <div>
-            <span className="gold-rule" />
+            <span className="eyebrow">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
+              what we have been upto
+            </span>
             <h2 className="section-title">Latest News &amp; Events</h2>
           </div>
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 font-body text-sm font-semibold text-navy-950 hover:text-gold-600 transition-colors shrink-0"
+            className="inline-flex items-center gap-2 font-body text-sm font-semibold text-navy-950 border border-slate-200 rounded-lg px-5 py-2.5 hover:border-gold-400 hover:bg-gold-50 hover:text-gold-700 transition-all duration-200 shrink-0 group"
           >
-            View All Events <ArrowRight size={16} />
+            View All Events{" "}
+            <ArrowRight
+              size={16}
+              className="transition-transform group-hover:translate-x-1"
+            />
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.map((event, i) => (
-            <EventCard key={event._id ?? i} event={event} />
-          ))}
-        </div>
+        <LatestNewsClient events={events} />
       </div>
     </section>
   );

@@ -33,6 +33,8 @@ export interface NewsEvent {
   _id?: string;
   title: string;
   summary: string;
+  description?: string;
+  images?: string[];
   imageUrl?: string;
   image?: {
     asset: { _ref: string };

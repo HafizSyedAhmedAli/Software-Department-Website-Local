@@ -23,6 +23,11 @@ async function apiFetch<T>(
   });
   if (!res.ok) throw new Error(`API ${endpoint} failed: ${res.status}`);
   const json = await res.json();
+  // If the backend responds but without usable data, treat it as a failure
+  // so callers' .catch(() => FALLBACK_DATA) fallbacks actually kick in.
+  if (json?.data === undefined || json?.data === null) {
+    throw new Error(`API ${endpoint} returned no data`);
+  }
   return json.data as T;
 }
 

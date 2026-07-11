@@ -12,7 +12,15 @@ export const metadata: Metadata = {
     "Meet the faculty of the Software Engineering Department at QUEST Nawabshah.",
 };
 
+function cleanEmail(email?: string) {
+  if (!email) return undefined;
+  // Strip an accidentally-entered "mailto:" prefix so we never render/link it twice.
+  return email.replace(/^mailto:/i, "").trim();
+}
+
 function FacultyCard({ member }: { member: FacultyMember }) {
+  const email = cleanEmail(member.email);
+
   return (
     <div className="group bg-white rounded-sm shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
       <div className="relative h-56 bg-slate-100 overflow-hidden">
@@ -22,7 +30,7 @@ function FacultyCard({ member }: { member: FacultyMember }) {
             alt={member.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="object-contain object-center p-2 transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-navy-100">
@@ -32,9 +40,9 @@ function FacultyCard({ member }: { member: FacultyMember }) {
           </div>
         )}
         <div className="absolute inset-0 bg-navy-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-          {member.email && (
+          {email && (
             <a
-              href={`mailto:${member.email}`}
+              href={`mailto:${email}`}
               className="w-9 h-9 rounded-full bg-white/20 hover:bg-gold-500 text-white flex items-center justify-center transition-colors"
             >
               <Mail size={15} />
@@ -51,6 +59,7 @@ function FacultyCard({ member }: { member: FacultyMember }) {
             </a>
           )}
           {member.facebook && (
+            /* FIXED: Added missing <a tag opening */
             <a
               href={member.facebook}
               target="_blank"
@@ -74,12 +83,13 @@ function FacultyCard({ member }: { member: FacultyMember }) {
         <p className="font-body text-sm text-slate-500 mb-3">
           {member.designation}
         </p>
-        {member.email && (
+        {email && (
+          /* FIXED: Added missing <a tag opening */
           <a
-            href={`mailto:${member.email}`}
+            href={`mailto:${email}`}
             className="font-body text-xs text-navy-700 hover:text-gold-600 transition-colors truncate mt-auto"
           >
-            {member.email}
+            {email}
           </a>
         )}
       </div>
@@ -88,10 +98,40 @@ function FacultyCard({ member }: { member: FacultyMember }) {
   );
 }
 
+// Hierarchy: Professor > Associate Professor > Assistant Professor > Lecturer > Lab Engineer.
+// Chairman is handled separately above and never appears here.
+const DESIGNATION_RANK: Record<string, number> = {
+  Professor: 1,
+  "Associate Professor": 2,
+  "Assistant Professor": 3,
+  Lecturer: 4,
+  "Lab Engineer": 5,
+};
+
+// Names that should always be pinned to the very end of the list,
+// after everyone else in the hierarchy above (in this order).
+const PIN_LAST = ["Muskan", "Kashif"];
+
+function rankOf(member: FacultyMember) {
+  const designationRank = DESIGNATION_RANK[member.designation] ?? 99;
+  const pinIndex = PIN_LAST.findIndex((n) =>
+    member.name.toLowerCase().includes(n.toLowerCase()),
+  );
+  // Pinned members get pushed past every real designation rank,
+  // while still respecting their relative order in PIN_LAST.
+  return pinIndex === -1 ? designationRank : 100 + pinIndex;
+}
+
+function sortByHierarchy(members: FacultyMember[]) {
+  return [...members].sort((a, b) => rankOf(a) - rankOf(b));
+}
+
 export default async function FacultyPage() {
-  const faculty = await api.faculty().catch(() => FACULTY_DATA);
+  const fetched = await api.faculty().catch(() => FACULTY_DATA);
+  // Extra safety: even if the API returns a non-array shape, never crash.
+  const faculty = Array.isArray(fetched) ? fetched : FACULTY_DATA;
   const chairman = faculty.find((f) => f.isChairman);
-  const rest = faculty.filter((f) => !f.isChairman);
+  const rest = sortByHierarchy(faculty.filter((f) => !f.isChairman));
 
   return (
     <>

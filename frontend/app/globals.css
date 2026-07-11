@@ -2,17 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Google Fonts (loaded via next/font in layout, here for fallback) ─── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* ─── Google Fonts fallback (primary loading is via next/font in layout) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   /* Brand palette */
-  --navy-950: #002147;
-  --navy-900: #001730;
-  --navy-800: #112a4f;
-  --navy-700: #1f3d6e;
-  --gold-500: #d9a128;
-  --gold-400: #e4b847;
+  --navy-950: #051229;
+  --navy-900: #0a1b3a;
+  --navy-800: #122a54;
+  --navy-700: #1d3c72;
+  --gold-500: #eba413;
+  --gold-400: #f2b92b;
+  --cyan-500: #06b6d4;
 
   /* Neutral */
   --slate-50: #f8fafc;
@@ -21,9 +22,9 @@
   --text-secondary: #475569;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,23,48,0.06);
-  --shadow-md: 0 4px 24px rgba(0,23,48,0.08);
-  --shadow-lg: 0 8px 40px rgba(0,23,48,0.14);
+  --shadow-sm: 0 1px 3px rgba(5,18,41,0.06);
+  --shadow-md: 0 4px 24px rgba(5,18,41,0.08);
+  --shadow-lg: 0 16px 48px rgba(5,18,41,0.16);
 }
 
 /* ─── Base ─── */
@@ -44,6 +45,19 @@ body {
 /* ─── Typography ─── */
 h1, h2, h3, h4, h5, h6 {
   @apply font-display font-semibold leading-tight text-navy-950;
+  letter-spacing: -0.01em;
+}
+
+/* Fluid display sizes — scale beautifully from phone to 4K monitor */
+.text-hero {
+  font-size: clamp(2.1rem, 2.6vw + 1rem, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+.text-section {
+  font-size: clamp(1.75rem, 2vw + 0.9rem, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
 }
 
 /* ─── Scrollbar ─── */
@@ -64,31 +78,43 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Utility classes ─── */
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-navy-950 text-white 
-           px-6 py-3 rounded-sm font-body font-semibold text-sm
-           tracking-wide uppercase transition-all duration-300
-           hover:bg-navy-700 hover:shadow-lg hover:-translate-y-0.5
+    @apply inline-flex items-center gap-2 bg-navy-950 text-white
+           px-7 py-3.5 rounded-lg font-body font-semibold text-sm
+           tracking-wide transition-all duration-300 relative overflow-hidden
+           hover:bg-navy-800 hover:shadow-lg hover:-translate-y-0.5
            focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
   }
 
   .btn-outline {
     @apply inline-flex items-center gap-2 border-2 border-navy-950 text-navy-950
-           px-6 py-3 rounded-sm font-body font-semibold text-sm
-           tracking-wide uppercase transition-all duration-300
+           px-7 py-3.5 rounded-lg font-body font-semibold text-sm
+           tracking-wide transition-all duration-300
            hover:bg-navy-950 hover:text-white hover:-translate-y-0.5
            focus:outline-none focus:ring-2 focus:ring-navy-950 focus:ring-offset-2;
   }
 
   .btn-gold {
     @apply inline-flex items-center gap-2 bg-gold-500 text-navy-950
-           px-6 py-3 rounded-sm font-body font-semibold text-sm
-           tracking-wide uppercase transition-all duration-300
-           hover:bg-gold-400 hover:shadow-lg hover:-translate-y-0.5
+           px-7 py-3.5 rounded-lg font-body font-bold text-sm
+           tracking-wide transition-all duration-300
+           hover:bg-gold-400 hover:shadow-glow-gold hover:-translate-y-0.5
            focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
   }
 
+  /* Eyebrow pill — used above section titles */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold-500/30
+           bg-gold-500/10 px-4 py-1.5 font-mono text-[11px] font-semibold
+           uppercase tracking-[0.2em] text-gold-600 mb-4;
+  }
+  .eyebrow-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold-400/30
+           bg-white/5 backdrop-blur-sm px-4 py-1.5 font-mono text-[11px] font-semibold
+           uppercase tracking-[0.2em] text-gold-400 mb-4;
+  }
+
   .section-title {
-    @apply font-display text-3xl md:text-4xl font-bold text-navy-950;
+    @apply font-display font-bold text-navy-950 text-section;
   }
 
   .section-subtitle {
@@ -96,8 +122,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .card {
-    @apply bg-white rounded-sm shadow-card transition-all duration-300
+    @apply bg-white rounded-xl shadow-card transition-all duration-300
            hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  /* Frosted glass panel (dark backgrounds) */
+  .glass-panel {
+    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-xl shadow-glass;
   }
 
   .nav-link {
@@ -120,9 +151,9 @@ h1, h2, h3, h4, h5, h6 {
     @apply text-navy-950 font-semibold;
   }
 
-  /* Gold rule separator */
+  /* Gold rule separator (kept for backwards compat) */
   .gold-rule {
-    @apply block w-12 h-1 bg-gold-500 mb-4;
+    @apply block w-12 h-1 rounded-full bg-gradient-to-r from-gold-500 to-gold-300 mb-4;
   }
 
   /* Animated underline */
@@ -132,6 +163,30 @@ h1, h2, h3, h4, h5, h6 {
   .underline-gold::after {
     content: '';
     @apply absolute left-0 -bottom-1 w-full h-0.5 bg-gold-500;
+  }
+
+  /* Subtle dot-grid background (light sections) */
+  .bg-dots-light {
+    background-image: radial-gradient(circle at 1px 1px, rgba(5,18,41,0.08) 1px, transparent 0);
+    background-size: 26px 26px;
+  }
+  /* Subtle dot-grid background (dark sections) */
+  .bg-dots-dark {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.10) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+  /* Fine grid-lines background */
+  .bg-grid-dark {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Gradient text */
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-gold-400 via-gold-300 to-gold-500 bg-clip-text text-transparent;
+    background-size: 200% auto;
   }
 }
 
@@ -187,4 +242,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 .dept-table tr:hover td {
   @apply bg-navy-50 transition-colors duration-150;
+}
+
+/* ─── Reduced motion respect ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

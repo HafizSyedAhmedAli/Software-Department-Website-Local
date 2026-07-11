@@ -1,30 +1,33 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Nunito_Sans, JetBrains_Mono } from "next/font/google";
+import { Poppins, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SplashScreen from "../components/SplashScreen";
 
 // ─── Fonts ─────────────────────────────────────────────────────────────────
-const playfair = Playfair_Display({
+// Poppins — geometric, rounded, professional. The signature look of the
+// reference site's headings.
+// Inter — crisp modern body/UI font, pairs beautifully with Poppins.
+// JetBrains Mono — code-flavored accents (labels, numbers).
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-display",
   display: "swap",
-  weight: ["400", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const nunito = Nunito_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-nunito",
+  variable: "--font-body",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 // ─── Metadata ──────────────────────────────────────────────────────────────
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
       "Empowering the next generation of software engineers in Pakistan.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/images/favicon.png",
     apple: "/apple-touch-icon.png",
   },
 };
@@ -67,9 +70,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${nunito.variable} ${jetbrains.variable}`}
+      className={`${poppins.variable} ${inter.variable} ${jetbrains.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-white antialiased">
+        <SplashScreen />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

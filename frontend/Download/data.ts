@@ -56,10 +56,10 @@ export const CONTACT = {
 
 // ─── Stats ─────────────────────────────────────────────────────────────────
 export const STATS = [
-  { label: "Subjects", value: 42, icon: "book" },
-  { label: "Students", value: 500, icon: "users" },
-  { label: "Modern Labs", value: 10, icon: "flask" },
-  { label: "Faculty Members", value: 15, icon: "graduation-cap" },
+  { label: "Core & Elective Courses", value: 50, icon: "book" },
+  { label: "Students Enrolled", value: 700, icon: "users" },
+  { label: "Modern Computing Labs", value: 12, icon: "flask" },
+  { label: "Faculty Members", value: 20, icon: "graduation-cap" },
 ];
 
 // ─── Faculty (static fallback — will be replaced by Sanity data) ──────────
@@ -78,7 +78,7 @@ export const FACULTY_DATA: FacultyMember[] = [
     name: "Dr. Rafia Naz Memon",
     designation: "Associate Professor",
     imageUrl: "/images/faculty/dr_rafia.jpg",
-    order: 2,
+    order: 3,
   },
   {
     name: "Dr. Imtiaz Ali Halepoto",
@@ -87,14 +87,14 @@ export const FACULTY_DATA: FacultyMember[] = [
     facebook: "https://www.facebook.com/imtiaz.halepoto",
     linkedin: "https://www.linkedin.com/in/imtiaz-ali-halepoto-604332122/",
     imageUrl: "/images/faculty/dr_imtiaz.jpeg",
-    order: 3,
+    order: 4,
   },
   {
     name: "Dr. Sajida Parveen",
     designation: "Associate Professor",
     email: "sajidaparveen@quest.edu.pk",
     imageUrl: "/images/faculty/dr_sajida.jpeg",
-    order: 4,
+    order: 5,
   },
   {
     name: "Engr. Fiza Siyal",
@@ -102,21 +102,21 @@ export const FACULTY_DATA: FacultyMember[] = [
     email: "engr_fizza2001@quest.edu.pk",
     linkedin: "https://www.linkedin.com/in/engr-fiza-8840ba103/",
     imageUrl: "/images/faculty/dr_fiza.jpg",
-    order: 5,
+    order: 6,
   },
   {
     name: "Dr. Ali Raza Bhangwar",
     designation: "Assistant Professor",
     email: "arbaloch@quest.edu.pk",
     imageUrl: "/images/faculty/dr_aliraza.jpg",
-    order: 6,
+    order: 7,
   },
   {
     name: "Dr. Fayaz Ahmed Memon",
-    designation: "Assistant Professor",
+    designation: "Professor",
     email: "engr_fayaz@hotmail.com",
     imageUrl: "/images/faculty/dr_fayazmemeon.jpeg",
-    order: 7,
+    order: 2,
   },
   {
     name: "Engr. Muhammad Aamir Bhutto",
@@ -134,7 +134,7 @@ export const FACULTY_DATA: FacultyMember[] = [
     order: 9,
   },
   {
-    name: "Engr. Mir Mohammad Jono",
+    name: "Engr. Mir Muhammad Juno",
     designation: "Lecturer",
     email: "mir.juno@quest.edu.pk",
     imageUrl: "/images/faculty/mir_Mohammad.png",
@@ -146,6 +146,12 @@ export const FACULTY_DATA: FacultyMember[] = [
     email: "zohaibquest22@gmail.com",
     imageUrl: "/images/faculty/mr.zohaib.png",
     order: 11,
+  },
+  {
+    name: "Engr. Abdul Qadeer Tunio",
+    designation: "Lab Engineer",
+    imageUrl: "/images/faculty/engr_abdulqadeer.jpg",
+    order: 12,
   },
 ];
 
@@ -298,39 +304,45 @@ export const GALLERY_CATEGORIES = [
 // ─── OBE: Vision & Mission ──────────────────────────────────────────────────
 export const VISION_MISSION: VisionMission = {
   vision:
-    "To be a nationally and internationally recognised department delivering world-class software engineering education, research, and innovation that meets the highest academic and professional standards.",
+    "To become a nationally and internationally recognized center of excellence in Software Engineering education, research, and innovation by producing competent professionals who contribute to technological advancement and sustainable development.",
   mission: [
-    "Provide high-quality undergraduate and postgraduate education in software engineering, aligned with PEC and international accreditation standards.",
-    "Foster a research-intensive environment where students and faculty collaborate on cutting-edge software solutions to real-world problems.",
-    "Build strong industry partnerships that create internship, employment, and entrepreneurial opportunities for graduates.",
-    "Instil professional ethics, leadership, and a commitment to lifelong learning in every graduate.",
-    "Contribute to the social and economic development of Pakistan through knowledge creation, technology transfer, and community engagement.",
+    "Delivering quality engineering education aligned with international academic standards.",
+    "Developing competent graduates with strong analytical, technical, and professional skills.",
+    "Promoting innovative research that addresses industrial and societal challenges.",
+    "Strengthening collaboration with industry, academia, and research organizations.",
+    "Encouraging ethical practices, leadership, entrepreneurship, and lifelong learning.",
+    "Preparing graduates capable of adapting to emerging technologies and global engineering practices.",
   ],
   values: [
     {
-      title: "Excellence",
+      title: "Industry-Relevant Curriculum",
       description:
-        "Pursuing the highest standards in teaching, research, and professional practice.",
+        "Curricula are regularly updated to meet national and international industry requirements and emerging technological trends.",
     },
     {
-      title: "Integrity",
+      title: "Experienced Faculty",
       description:
-        "Upholding honesty, transparency, and ethical conduct in all endeavours.",
+        "Qualified faculty members actively engage in teaching, research, consultancy, and professional development.",
     },
     {
-      title: "Innovation",
+      title: "Modern Computing Facilities",
       description:
-        "Encouraging creative thinking and novel approaches to solve complex software challenges.",
+        "Students have access to well-equipped computer laboratories, high-speed internet, licensed software tools, and research facilities.",
     },
     {
-      title: "Inclusivity",
+      title: "Research Opportunities",
       description:
-        "Welcoming diversity of thought, background, and perspective in our community.",
+        "Students participate in innovative research projects covering Artificial Intelligence, Machine Learning, Software Quality Assurance, Cloud Computing, Cybersecurity, Data Science, IoT, and other emerging domains.",
     },
     {
-      title: "Collaboration",
+      title: "Practical Learning",
       description:
-        "Building meaningful partnerships with industry, academia, and society at large.",
+        "The department emphasizes project-based learning, internships, industrial visits, software development projects, and collaborative research.",
+    },
+    {
+      title: "Career Development",
+      description:
+        "Graduates are prepared for careers in software development, research, entrepreneurship, higher education, and multinational technology organizations.",
     },
   ],
 };

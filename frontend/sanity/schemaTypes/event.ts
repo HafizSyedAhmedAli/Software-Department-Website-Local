@@ -14,9 +14,18 @@ export const eventSchema = defineType({
     defineField({
       name: "summary",
       title: "Summary",
+      description: "Short text shown on the event card (2–3 lines).",
       type: "text",
       rows: 4,
       validation: (R) => R.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Full Description",
+      description:
+        "Optional long description shown when the event is opened. If empty, the summary is shown instead.",
+      type: "text",
+      rows: 10,
     }),
     defineField({
       name: "date",
@@ -27,8 +36,17 @@ export const eventSchema = defineType({
     defineField({
       name: "image",
       title: "Cover Image",
+      description: "Main image shown on the event card.",
       type: "image",
       options: { hotspot: true },
+    }),
+    defineField({
+      name: "images",
+      title: "Gallery Images",
+      description:
+        "Optional extra photos. When an event has multiple images, visitors can swipe through them.",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
     }),
   ],
   preview: {

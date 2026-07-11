@@ -4,15 +4,17 @@ import { NewsEvent } from "../types";
 
 const ALL_QUERY = groq`
   *[_type == "event"] | order(date desc) {
-    _id, title, summary, date,
-    "imageUrl": image.asset->url
+    _id, title, summary, description, date,
+    "imageUrl": image.asset->url,
+    "images": images[].asset->url
   }
 `;
 
 const LATEST_QUERY = groq`
   *[_type == "event"] | order(date desc) [0...6] {
-    _id, title, summary, date,
-    "imageUrl": image.asset->url
+    _id, title, summary, description, date,
+    "imageUrl": image.asset->url,
+    "images": images[].asset->url
   }
 `;
 
