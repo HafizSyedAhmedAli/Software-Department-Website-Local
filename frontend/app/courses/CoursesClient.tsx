@@ -1,182 +1,302 @@
 "use client";
 
-import Link from "next/link";
-import { BookOpen, Clock, Tag, ChevronRight } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState, useMemo } from "react";
+import {
+  BookOpen,
+  Clock,
+  ChevronDown,
+  Layers,
+  Brain,
+  Wrench,
+  Heart,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { clsx } from "clsx";
 
 const SEMESTER_LABELS: Record<number, string> = {
-    1: "First Semester", 2: "Second Semester", 3: "Third Semester",
-    4: "Fourth Semester", 5: "Fifth Semester", 6: "Sixth Semester",
-    7: "Seventh Semester", 8: "Eighth Semester",
+  1: "First Semester",
+  2: "Second Semester",
+  3: "Third Semester",
+  4: "Fourth Semester",
+  5: "Fifth Semester",
+  6: "Sixth Semester",
+  7: "Seventh Semester",
+  8: "Eighth Semester",
 };
 
-interface CourseCLO { clo: string; description: string; domain: string; taxonomy: string; plo: string; }
-interface Course { _id?: string; code: string; name: string; creditHours: number; semester: number; type: string; clos: CourseCLO[]; }
-
-function StatCard({ label, value, index }: { label: string; value: string; index: number }) {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true });
-    return (
-        <motion.div
-            ref={ref}
-            className="bg-navy-950 text-white rounded-sm px-6 py-5 text-center"
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -4, backgroundColor: "#1f3d6e" }}
-        >
-            <p className="font-display text-3xl font-bold text-gold-400 mb-1">{value}</p>
-            <p className="font-body text-xs text-slate-400 uppercase tracking-wide">{label}</p>
-        </motion.div>
-    );
+interface CourseCLO {
+  clo: string;
+  description: string;
+  domain: string;
+  taxonomy: string;
+  plo: string;
+}
+interface Course {
+  _id?: string;
+  code: string;
+  name: string;
+  creditHours: number;
+  semester: number;
+  type: string;
+  clos: CourseCLO[];
 }
 
-function CourseCard({ course, index }: { course: Course; index: number }) {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true, amount: 0.1 });
-    return (
-        <motion.div
-            ref={ref}
-            className="group bg-white border border-slate-100 rounded-sm shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 p-5 relative overflow-hidden"
-            initial={{ opacity: 0, y: 28 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.45, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -4 }}
-        >
-            {/* Hover accent */}
-            <motion.div
-                className="absolute top-0 left-0 w-1 h-0 bg-gold-500 group-hover:h-full transition-all duration-300"
-                style={{ height: 0 }}
-            />
+// ─── Domain badge (Cognitive / Psychomotor / Affective) ────────────────────
+function DomainBadge({ domain }: { domain?: string }) {
+  if (!domain) return <span className="text-slate-300">—</span>;
+  const d = domain.toLowerCase();
+  const map = d.startsWith("cog")
+    ? { icon: Brain, cls: "bg-navy-50 text-navy-800 border-navy-200" }
+    : d.startsWith("psy")
+      ? { icon: Wrench, cls: "bg-gold-50 text-gold-800 border-gold-200" }
+      : { icon: Heart, cls: "bg-rose-50 text-rose-700 border-rose-200" };
+  const Icon = map.icon;
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-body font-semibold ${map.cls}`}
+    >
+      <Icon size={10} /> {domain}
+    </span>
+  );
+}
 
-            <div className="flex items-start justify-between gap-3 mb-3">
-                <motion.div
-                    className="w-10 h-10 rounded-sm bg-navy-950 flex items-center justify-center shrink-0"
-                    whileHover={{ rotate: 8, scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <BookOpen size={18} className="text-gold-400" />
-                </motion.div>
-                <span className="font-mono text-xs bg-gold-50 text-gold-700 border border-gold-200 px-2 py-0.5 rounded-sm font-semibold">
-                    {course.code}
-                </span>
-            </div>
+// ─── Expandable course row with proper OBE CLO–PLO table ───────────────────
+function CourseRow({ course }: { course: Course }) {
+  const [open, setOpen] = useState(false);
+  const hasClos = Array.isArray(course.clos) && course.clos.length > 0;
 
-            <h3 className="font-display text-navy-950 font-semibold text-base leading-snug mb-3">
-                {course.name}
-            </h3>
-            <div className="flex flex-wrap gap-3 text-xs font-body text-slate-500">
-                <span className="flex items-center gap-1.5">
-                    <Clock size={11} className="text-gold-500" />{course.creditHours} Credit Hours
-                </span>
-                <span className="flex items-center gap-1.5">
-                    <Tag size={11} className="text-gold-500" />{course.type}
-                </span>
-            </div>
-            <div className="mt-4 pt-4 border-t border-slate-50">
-                <p className="font-body text-xs text-slate-400 uppercase tracking-wide mb-2">{course.clos?.length} CLOs</p>
-                <div className="flex gap-1 flex-wrap">
-                    {course.clos?.map((clo, cloIndex) => (
-                        <motion.span
-                            key={`clo-${cloIndex}`}
-                            className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-sm font-mono"
-                            whileHover={{ backgroundColor: "#002147", color: "#e4b847" }}
-                            transition={{ duration: 0.15 }}
-                        >
-                            {clo.clo}
-                        </motion.span>
+  return (
+    <motion.div
+      layout
+      className="bg-white border border-slate-100 rounded-2xl shadow-card overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.4 }}
+    >
+      {/* Header — always visible, clickable */}
+      <button
+        onClick={() => hasClos && setOpen((v) => !v)}
+        className={clsx(
+          "w-full flex items-center gap-4 px-5 py-4 text-left transition-colors",
+          hasClos ? "hover:bg-slate-50 cursor-pointer" : "cursor-default",
+        )}
+        aria-expanded={open}
+      >
+        <span className="w-10 h-10 rounded-xl bg-navy-950 flex items-center justify-center shrink-0">
+          <BookOpen size={17} className="text-gold-400" />
+        </span>
+
+        <span className="flex-1 min-w-0">
+          <span className="block font-display font-semibold text-navy-950 text-sm sm:text-base leading-snug">
+            {course.name}
+          </span>
+          <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="font-mono text-[11px] text-gold-600 font-semibold">
+              {course.code}
+            </span>
+            <span className="inline-flex items-center gap-1 font-body text-[11px] text-slate-400">
+              <Clock size={10} /> {course.creditHours} Credit Hours
+            </span>
+            {course.type && (
+              <span className="inline-flex items-center rounded-full bg-slate-100 text-slate-600 font-body text-[10px] font-medium px-2 py-0.5">
+                {course.type}
+              </span>
+            )}
+            {hasClos && (
+              <span className="inline-flex items-center rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-700 font-mono text-[10px] font-semibold px-2 py-0.5">
+                {course.clos.length} CLO{course.clos.length > 1 ? "s" : ""}
+              </span>
+            )}
+          </span>
+        </span>
+
+        {hasClos && (
+          <motion.span
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25 }}
+            className="text-slate-400 shrink-0"
+          >
+            <ChevronDown size={18} />
+          </motion.span>
+        )}
+      </button>
+
+      {/* CLO–PLO mapping table (standard OBE format) */}
+      <AnimatePresence initial={false}>
+        {open && hasClos && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 pb-5">
+              <div className="overflow-x-auto rounded-xl border border-slate-100">
+                <table className="w-full text-sm border-collapse min-w-[560px]">
+                  <thead>
+                    <tr className="bg-navy-950 text-white">
+                      <th className="font-body font-semibold text-xs px-3 py-2.5 text-left w-20">
+                        CLO
+                      </th>
+                      <th className="font-body font-semibold text-xs px-3 py-2.5 text-left">
+                        Course Learning Outcome Statement
+                      </th>
+                      <th className="font-body font-semibold text-xs px-3 py-2.5 text-left w-32">
+                        Domain
+                      </th>
+                      <th className="font-body font-semibold text-xs px-3 py-2.5 text-center w-20">
+                        Level
+                      </th>
+                      <th className="font-body font-semibold text-xs px-3 py-2.5 text-center w-20">
+                        PLO
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {course.clos.map((clo, i) => (
+                      <tr
+                        key={i}
+                        className={clsx(
+                          "border-b border-slate-100 last:border-0",
+                          i % 2 === 1 && "bg-slate-50/60",
+                        )}
+                      >
+                        <td className="px-3 py-2.5 font-mono text-[11px] font-bold text-navy-950 whitespace-nowrap align-top">
+                          {clo.clo}
+                        </td>
+                        <td className="px-3 py-2.5 font-body text-[13px] text-slate-600 leading-relaxed align-top">
+                          {clo.description}
+                        </td>
+                        <td className="px-3 py-2.5 align-top">
+                          <DomainBadge domain={clo.domain} />
+                        </td>
+                        <td className="px-3 py-2.5 text-center align-top">
+                          <span className="inline-flex items-center justify-center rounded-md bg-navy-950 text-gold-400 font-mono text-[11px] font-bold px-2 py-0.5">
+                            {clo.taxonomy || "—"}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2.5 text-center align-top font-mono text-[12px] font-bold text-navy-950">
+                          {clo.plo ? `PLO-${String(clo.plo).replace(/^PLO-?/i, "")}` : "—"}
+                        </td>
+                      </tr>
                     ))}
-                </div>
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2.5 font-body text-[11px] text-slate-400">
+                Domains: Cognitive (C1–C6, Bloom&apos;s Taxonomy) · Psychomotor
+                (P1–P5) · Affective (A1–A5). Each CLO is mapped to a Program
+                Learning Outcome (PLO).
+              </p>
             </div>
-        </motion.div>
-    );
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
 }
 
+// ─── Main client: semester tabs + course accordions ────────────────────────
 export default function CoursesClient({ courses }: { courses: Course[] }) {
-    const bySemester = courses.reduce<Record<number, Course[]>>((acc, c) => {
-        if (!acc[c.semester]) acc[c.semester] = [];
-        acc[c.semester].push(c);
-        return acc;
-    }, {});
-    const semesters = Object.keys(bySemester).map(Number).sort((a, b) => a - b);
-    const totalCredits = courses.reduce((s, c) => s + c.creditHours, 0);
-    const ctaRef = useRef(null);
-    const ctaInView = useInView(ctaRef, { once: true });
+  const semesters = useMemo(
+    () =>
+      [...new Set(courses.map((c) => c.semester))]
+        .filter((s) => typeof s === "number" && s >= 1)
+        .sort((a, b) => a - b),
+    [courses],
+  );
+  const [active, setActive] = useState<number>(semesters[0] ?? 1);
 
-    return (
-        <section className="py-16 md:py-24 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                    {[
-                        { label: "Total Courses", value: `${courses.length}+` },
-                        { label: "Credit Hours", value: `${totalCredits}+` },
-                        { label: "Semesters", value: "8" },
-                        { label: "Duration", value: "4 Years" },
-                    ].map((item, i) => (
-                        <StatCard key={item.label} {...item} index={i} />
-                    ))}
-                </div>
+  const visible = useMemo(
+    () => courses.filter((c) => c.semester === active),
+    [courses, active],
+  );
 
-                <div className="space-y-14">
-                    {semesters.map((sem, semIndex) => {
-                        const semRef = useRef(null);
-                        const semInView = useInView(semRef, { once: true, amount: 0.05 });
-                        return (
-                            <motion.div
-                                key={sem}
-                                ref={semRef}
-                                initial={{ opacity: 0 }}
-                                animate={semInView ? { opacity: 1 } : {}}
-                                transition={{ duration: 0.4 }}
-                            >
-                                <motion.div
-                                    className="flex items-center gap-4 mb-6"
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={semInView ? { opacity: 1, x: 0 } : {}}
-                                    transition={{ duration: 0.45 }}
-                                >
-                                    <span className="gold-rule mb-0" />
-                                    <h2 className="font-display text-xl font-bold text-navy-950">
-                                        {SEMESTER_LABELS[sem] ?? `Semester ${sem}`}
-                                    </h2>
-                                    <span className="text-xs text-slate-400 font-body">
-                                        ({bySemester[sem].length} course{bySemester[sem].length > 1 ? "s" : ""})
-                                    </span>
-                                </motion.div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                                    {bySemester[sem].map((course, i) => (
-                                        <CourseCard key={course._id ?? `${sem}-${i}`} course={course} index={i} />
-                                    ))}
-                                </div>
-                            </motion.div>
-                        );
-                    })}
-                </div>
+  const totalCH = visible.reduce((sum, c) => sum + (c.creditHours || 0), 0);
+  const totalClos = visible.reduce((sum, c) => sum + (c.clos?.length || 0), 0);
 
-                {/* CTA */}
-                <motion.div
-                    ref={ctaRef}
-                    className="mt-16 bg-navy-950 rounded-sm p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={ctaInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <div>
-                        <p className="font-display text-white text-xl font-bold mb-1">
-                            Want to see the full Course Learning Outcomes?
-                        </p>
-                        <p className="font-body text-slate-400 text-sm">
-                            Detailed CLO mappings to PLOs are available in the OBE section.
-                        </p>
-                    </div>
-                    <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                        <Link href="/obe/clos" className="btn-gold shrink-0">
-                            View CLOs <ChevronRight size={16} />
-                        </Link>
-                    </motion.div>
-                </motion.div>
+  return (
+    <section className="relative py-14 md:py-20 bg-slate-50 overflow-hidden">
+      <div className="absolute inset-0 bg-dots-light opacity-40 pointer-events-none" />
+      <div className="relative max-w-8xl mx-auto px-5 sm:px-6 lg:px-10">
+        {/* ── Semester tabs ── */}
+        <div className="mb-8">
+          <span className="eyebrow">
+            <Layers size={11} className="text-gold-600" />
+            $ select --semester
+          </span>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {semesters.map((sem) => (
+              <button
+                key={sem}
+                onClick={() => setActive(sem)}
+                className={clsx(
+                  "relative px-4 py-2 rounded-xl font-body text-sm font-semibold transition-all duration-200",
+                  active === sem
+                    ? "bg-navy-950 text-white shadow-card"
+                    : "bg-white text-slate-600 border border-slate-200 hover:border-gold-400 hover:text-navy-950",
+                )}
+              >
+                {active === sem && (
+                  <motion.span
+                    layoutId="sem-pill"
+                    className="absolute inset-0 rounded-xl bg-navy-950 -z-10"
+                    transition={{ duration: 0.25 }}
+                  />
+                )}
+                <span className="relative">
+                  Semester {sem}
+                  {active === sem && (
+                    <span className="ml-1.5 text-gold-400 font-mono text-[10px]">
+                      ●
+                    </span>
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Semester summary ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
+              <div>
+                <h2 className="font-display text-navy-950 font-bold text-xl sm:text-2xl">
+                  {SEMESTER_LABELS[active] ?? `Semester ${active}`}
+                </h2>
+                <p className="font-body text-sm text-slate-500 mt-1">
+                  {visible.length} course{visible.length !== 1 ? "s" : ""} ·{" "}
+                  {totalCH} credit hours · {totalClos} learning outcomes
+                </p>
+              </div>
+              <p className="font-mono text-[11px] text-slate-400">
+                click a course to view its CLO-PLO mapping
+              </p>
             </div>
-        </section>
-    );
+
+            {/* ── Course accordion list ── */}
+            <div className="space-y-3">
+              {visible.map((course, i) => (
+                <CourseRow key={course._id ?? `${active}-${i}`} course={course} />
+              ))}
+              {visible.length === 0 && (
+                <p className="py-16 text-center font-body text-slate-400">
+                  No courses added for this semester yet.
+                </p>
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </section>
+  );
 }
