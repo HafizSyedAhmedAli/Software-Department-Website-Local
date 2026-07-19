@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Mail, Facebook, Linkedin, Crown } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
+import SafeEmail from "../../components/SafeEmail";
 import { api } from "../../lib/api";
 import { FACULTY_DATA } from "../../download/data";
 import { FacultyMember } from "../../lib/types";
@@ -41,12 +42,10 @@ function FacultyCard({ member }: { member: FacultyMember }) {
         )}
         <div className="absolute inset-0 bg-navy-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
           {email && (
-            <a
-              href={`mailto:${email}`}
-              className="w-9 h-9 rounded-full bg-white/20 hover:bg-gold-500 text-white flex items-center justify-center transition-colors"
-            >
-              <Mail size={15} />
-            </a>
+            <SafeEmail
+              email={email}
+              className="!gap-0 w-9 h-9 rounded-full bg-white/20 hover:bg-gold-500 !text-white justify-center [&>span]:hidden"
+            />
           )}
           {member.linkedin && (
             <a
@@ -84,13 +83,10 @@ function FacultyCard({ member }: { member: FacultyMember }) {
           {member.designation}
         </p>
         {email && (
-          /* FIXED: Added missing <a tag opening */
-          <a
-            href={`mailto:${email}`}
-            className="font-body text-xs text-navy-700 hover:text-gold-600 transition-colors truncate mt-auto"
-          >
-            {email}
-          </a>
+          <SafeEmail
+            email={email}
+            className="font-body text-xs text-navy-700 truncate mt-auto"
+          />
         )}
       </div>
       <div className="h-0.5 w-0 bg-gold-500 transition-all duration-300 group-hover:w-full" />
