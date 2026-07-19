@@ -323,7 +323,17 @@ export default function Navbar() {
               <div className="leading-none">
                 <p
                   className={clsx(
-                    "font-display font-bold text-navy-950 tracking-tight transition-all duration-300",
+                    "font-body font-medium text-slate-500 uppercase transition-all duration-300",
+                    scrolled
+                      ? "text-[7px] md:text-[8px] tracking-[0.18em]"
+                      : "text-[8px] md:text-[9px] tracking-[0.2em]",
+                  )}
+                >
+                  The Department of
+                </p>
+                <p
+                  className={clsx(
+                    "font-display font-bold text-navy-950 tracking-tight transition-all duration-300 mt-0.5",
                     scrolled
                       ? "text-[13px] md:text-[15px]"
                       : "text-sm md:text-[17px]",
@@ -333,8 +343,7 @@ export default function Navbar() {
                 </p>
                 <p
                   className={clsx(
-                      "mt-1 font-mono font-semibold text-gold-600 uppercase transition-all duration-300",
-
+                    "mt-1 font-mono font-semibold text-gold-600 uppercase transition-all duration-300",
                     scrolled
                       ? "text-[8px] md:text-[9px] tracking-[0.22em]"
                       : "text-[9px] md:text-[10px] tracking-[0.26em]",
