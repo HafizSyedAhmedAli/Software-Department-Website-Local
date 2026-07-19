@@ -296,25 +296,52 @@ export default function Navbar() {
               scrolled ? "h-14 md:h-16" : "h-16 md:h-20",
             )}
           >
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0">
+            {/* Brand: crisp emblem tile + typographic lockup.
+                Text is rendered by fonts (always sharp at any size/zoom),
+                and the emblem renders at 2x resolution for retina clarity. */}
+            <Link href="/" className="flex items-center gap-3 shrink-0 group">
               <motion.div
                 className={clsx(
-                  "relative transition-all duration-300",
-                  scrolled ? "w-36 h-9 md:w-52 md:h-12" : "w-40 h-10 md:w-64 md:h-16",
+                  "relative rounded-xl bg-white ring-1 ring-slate-200/80 shadow-sm flex items-center justify-center transition-all duration-300 overflow-hidden",
+                  scrolled
+                    ? "w-9 h-9 md:w-11 md:h-11"
+                    : "w-10 h-10 md:w-[52px] md:h-[52px]",
                 )}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ duration: 0.2 }}
               >
                 <Image
-                  src="/images/logo.png"
-                  alt="SWE QUEST Logo"
-                  fill
-                  sizes="(max-width: 768px) 160px, 256px"
-                  className="object-contain object-left"
+                  src="/images/favicon.png"
+                  alt="QUEST Software Engineering emblem"
+                  width={104}
+                  height={104}
+                  quality={100}
+                  className="object-contain p-1"
                   priority
                 />
               </motion.div>
+              <div className="leading-none">
+                <p
+                  className={clsx(
+                    "font-display font-bold text-navy-950 tracking-tight transition-all duration-300",
+                    scrolled
+                      ? "text-[13px] md:text-[15px]"
+                      : "text-sm md:text-[17px]",
+                  )}
+                >
+                  Software Engineering
+                </p>
+                <p
+                  className={clsx(
+                    "font-mono font-semibold text-gold-600 uppercase transition-all duration-300",
+                    scrolled
+                      ? "text-[8px] md:text-[9px] tracking-[0.22em]"
+                      : "text-[9px] md:text-[10px] tracking-[0.26em]",
+                  )}
+                >
+                  QUEST Nawabshah
+                </p>
+              </div>
             </Link>
 
             {/* Desktop Nav */}
