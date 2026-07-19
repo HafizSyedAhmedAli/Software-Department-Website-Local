@@ -333,7 +333,8 @@ export default function Navbar() {
                 </p>
                 <p
                   className={clsx(
-                    "font-mono font-semibold text-gold-600 uppercase transition-all duration-300",
+                      "mt-1 font-mono font-semibold text-gold-600 uppercase transition-all duration-300",
+
                     scrolled
                       ? "text-[8px] md:text-[9px] tracking-[0.22em]"
                       : "text-[9px] md:text-[10px] tracking-[0.26em]",
