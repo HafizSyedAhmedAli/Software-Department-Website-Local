@@ -32,6 +32,8 @@ const jetbrains = JetBrains_Mono({
 
 // ─── Metadata ──────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
+  // Required so Google (and social previews) get absolute URLs for icons/images
+  metadataBase: new URL("https://sw.quest.edu.pk"),
   title: {
     default: "Software Engineering | QUEST Nawabshah",
     template: "%s | SWE QUEST",
@@ -55,10 +57,10 @@ export const metadata: Metadata = {
     description:
       "Empowering the next generation of software engineers in Pakistan.",
   },
-  icons: {
-    icon: "/images/favicon.png",
-    apple: "/apple-touch-icon.png",
-  },
+  // NOTE: icons are handled automatically by the files
+  // app/favicon.ico, app/icon.png and app/apple-icon.png
+  // (Next.js App Router file convention). Do not add manual paths here —
+  // the old "/apple-touch-icon.png" path did not exist and returned 404.
 };
 
 // ─── Root Layout ───────────────────────────────────────────────────────────
