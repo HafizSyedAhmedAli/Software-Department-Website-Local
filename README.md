@@ -2,7 +2,7 @@
 
 A full-stack website for a university Software Engineering department, built as a decoupled system: a **Next.js** frontend and a **Node.js/Express** backend, both driven by **Sanity CMS** as the content source.
 
-**Live:** [https://swe-website-backend.vercel.app](https://sw.quest.edu.pk/)
+**Live:** https://sw.quest.edu.pk/
 
 ## Architecture
 
